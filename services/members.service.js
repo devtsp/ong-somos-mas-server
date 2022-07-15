@@ -1,12 +1,9 @@
 //const { Member } = require('./models/members.model.js'); // Falta crear el modelo del member
 
 const addMember = ({ name, image }) => {
-  try {
-    console.log({ name, image });
-    //Member.create({ name, image });
-  } catch (error) {
-    console.log(`Server Error: ${error.message}`);
-  }
+  // Cuando este el modelo se hace la consulta a la base de datos
+  //Member.create({ name, image });
+  console.log({ name, image });
 };
 
 module.exports = { addMember };

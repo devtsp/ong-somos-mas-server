@@ -14,7 +14,7 @@ const postMembers = async (req, res) => {
     await addMember({ name, image });
     res.status(200).json({ msg: `Member created`, member: { name, image } });
   } catch (error) {
-    res.status(500).send(`Server Error:${error.message}`);
+    res.status(500).json({ errors: error.message });
   }
 };
 
