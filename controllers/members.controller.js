@@ -8,11 +8,11 @@ const postMembers = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name } = req.body;
+  const { name, image } = req.body;
 
   try {
-    await addMember(name);
-    res.status(200).json({ msg: 'Category created' });
+    await addMember({ name, image });
+    res.status(200).json({ msg: `Member created`, member: { name, image } });
   } catch (error) {
     res.status(500).send(`Server Error:${error.message}`);
   }
