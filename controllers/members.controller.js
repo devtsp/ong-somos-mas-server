@@ -1,7 +1,9 @@
 const { addMember } = require('../services/members.service.js');
+const { validationResult } = require('express-validator');
 
 const postMembers = async (req, res) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
@@ -12,7 +14,6 @@ const postMembers = async (req, res) => {
     await addMember(name);
     res.status(200).json({ msg: 'Category created' });
   } catch (error) {
-    console.error(error.message);
     res.status(500).send(`Server Error:${error.message}`);
   }
 };

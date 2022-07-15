@@ -11,7 +11,7 @@ router.post(
   '/',
   [
     check('name', 'Name is Required').not().isEmpty(),
-    check('name', 'Name must be string').not().isString(),
+    check('name', 'Name must be string').isString(),
   ],
   postMembers
 );
