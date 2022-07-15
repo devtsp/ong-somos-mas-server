@@ -1,5 +1,4 @@
 //const { Member } = require('./models/members.model.js'); // Falta crear el modelo del member
-const User = require('./models/user.js'); // Falta crear el modelo del member
 
 const addMember = ({ name, image }) => {
   try {
