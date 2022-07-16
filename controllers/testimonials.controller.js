@@ -1,5 +1,5 @@
-const db = require('../models');
 const { validationResult } = require('express-validator');
+const { addTestimonial } = require('../services/testimonials.service');
 
 const postTestimonial = async (req, res) => {
   const errors = validationResult(req);
@@ -11,8 +11,10 @@ const postTestimonial = async (req, res) => {
   const { name, content, image } = req.body;
 
   try {
-    await db.Testimonial.create({ name, content, image });
-    res.status(200).json({ msg: `Testimonial created`, testimonial: { name, content, image } });
+    const newTestimonial = await addTestimonial({ name, content, image });
+    res
+      .status(200)
+      .json({ msg: `Testimonial succesfully created`, testimonial: { name, content, image } });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
