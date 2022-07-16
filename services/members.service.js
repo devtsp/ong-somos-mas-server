@@ -6,4 +6,10 @@ const addMember = ({ name, image }) => {
   console.log({ name, image });
 };
 
-module.exports = { addMember };
+const editMember = ({ name, image }) => {
+  // Cuando este el modelo se hace la consulta a la base de datos
+  //Member.create({ name, image });
+  console.log({ name, image });
+};
+
+module.exports = { addMember, editMember };
