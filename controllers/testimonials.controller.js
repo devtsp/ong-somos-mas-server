@@ -12,7 +12,7 @@ const postTestimonial = async (req, res) => {
 
   try {
     await db.Testimonial.create({ name, content, image });
-    res.status(200).json({ msg: `Testimonial created`, testimonial: { name, image, content } });
+    res.status(200).json({ msg: `Testimonial created`, testimonial: { name, content, image } });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
