@@ -1,5 +1,5 @@
 //const { Activities } = require('./models/activities.js'); 
-//(Model activities todavía no creado)
+//(Activity Model not created yet)
 
 const addActivity = ({name, content}) => {
     //Activity.create({name, content});
