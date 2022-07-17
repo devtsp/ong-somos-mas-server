@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 //const { updateTestimonial } = require('../controllers/testimonials.controller.js');
 
 router.put(
-  '/',
+  '/:id',
   // updateTestimonial
 );
 
