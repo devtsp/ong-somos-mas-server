@@ -11,6 +11,7 @@ const verifyJWT = require('./middleware/verifyJWT');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const membersRouter = require('./routes/members.route.js');
+const testimonialsRouter = require('./routes/testimonials.route');
 const apiRouter = require('./routes/api/index');
 
 const app = express();
