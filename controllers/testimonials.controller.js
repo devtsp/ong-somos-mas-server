@@ -1,4 +1,3 @@
-//const { Testimonial } = require('../models');
 const { updateTestimonial, findTestimonial } = require('../services/testimonials.service');
 
 const putTestimonial = async (req, res) => {

@@ -1,4 +1,4 @@
-//const { Testimonial } = require('./models');
+const { Testimonial } = require('./models');
 
 const findTestimonial = async (id) => {
   const testimonialToUpdate = await Testimonial.findOne({ where: { id: id } });
