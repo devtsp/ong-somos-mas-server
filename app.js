@@ -10,7 +10,6 @@ const validateToken = require('./middleware/validateToken');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const membersRouter = require('./routes/members.route.js');
 const activitiesRouter = require('./routes/activities.route.js');
 const testimonialsRouter = require('./routes/testimonials.route.js');
 const apiRouter = require('./routes/api/index');
@@ -30,7 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/members', membersRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/testimonials', testimonialsRouter);
 
