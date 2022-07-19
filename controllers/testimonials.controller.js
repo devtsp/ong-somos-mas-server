@@ -1,16 +1,23 @@
-const { updateTestimonial, findTestimonial } = require('../services/testimonials.service');
+const { validationResult } = require('express-validator');
+const { addTestimonial } = require('../services/testimonials.service');
 
-const putTestimonial = async (req, res) => {
-  const { id } = req.params;
-  const testimonialToUpdate = findTestimonial(id);
-  if (testimonialToUpdate === null) {
-    res.status(404).json({
-      error: "There isn't any testimonial instance with the given id",
-    });
+const postTestimonial = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
-  //Here we should update and return the new testimonial instance
-  const updatedTestimonial = updateTestimonial(testimonialToUpdate, newValues);
-  res.status(204).json({ message: 'Succesfully updated testimonial', updatedTestimonial });
+
+  const { name, content, image } = req.body;
+
+  try {
+    const newTestimonial = await addTestimonial({ name, content, image });
+    res
+      .status(200)
+      .json({ msg: `Testimonial succesfully created`, testimonial: { name, content, image } });
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
 };
 
-module.exports = { putTestimonial };
+module.exports = { postTestimonial };

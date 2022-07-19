@@ -2,13 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { postMembers, putMember } = require('../controllers/members.controller.js');
+const { postMembers, putMember } = require('../../controllers/members.controller.js');
+
+const verifyRoles = require('../../middleware/verifyRoles');
+const ROLES_LIST = require('../../config/rolesList');
 
 //@route    GET /api/members
 //@desc     Crea miembro, Valida que se envíe el campo name, y el mismo sea un string
 //@access   Private
 router.post(
   '/',
+  verifyRoles(ROLES_LIST.Admin),
   [
     check('name', 'Name is Required').not().isEmpty(),
     check('name', 'Name must be string').isString(),
@@ -21,6 +25,7 @@ router.post(
 //@access   Private
 router.put(
   '/:id',
+  verifyRoles(ROLES_LIST.Admin),
   [
     check('name', 'Name is Required').not().isEmpty(),
     check('name', 'Name must be string').isString(),
