@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const addActivity = require('../services/activities.service.js');
+const { addActivity, findActivity, updateActivity } = require('../services/activities.service.js');
 
 const postActivities = async (req, res) => {
   const errors = validationResult(req);
