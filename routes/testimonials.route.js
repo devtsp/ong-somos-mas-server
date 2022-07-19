@@ -4,6 +4,10 @@ const { check } = require('express-validator');
 
 const { postTestimonial } = require('../controllers/testimonials.controller.js');
 
+//@type POST
+//@route /api/testimonials
+//@desc creates a new testimonial. Checks 'name' and 'content' fields not to be empty;
+//@access Private
 router.post(
   '/',
   [
@@ -14,8 +18,3 @@ router.post(
 );
 
 module.exports = router;
-
-// POST /testimonials -
-// Deberá validar la existencia de los
-// campos name y content enviados, para
-// almacenar el registro en la tabla testimonials.

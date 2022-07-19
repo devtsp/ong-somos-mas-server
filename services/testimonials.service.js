@@ -1,10 +1,10 @@
-//const { Testimonial } = '../models'
+const { Testimonial } = require('../models');
 
-const addTestimonial = async ({ name, image, content }) => {
-  //A integrarse con el modelo correspondiente
-  //Testimonial.create(...)
+const addTestimonial = async (testimonialData) => {
+  const newTestimonial = await Testimonial.create(testimonialData);
+  console.log(newTestimonial);
   //Mock response:
-  return { name, image, content };
+  return newTestimonial;
 };
 
-module.exprots = addTestimonial;
+module.exports = { addTestimonial };
