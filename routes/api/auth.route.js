@@ -1,22 +1,19 @@
 const express = require('express');
+const { check } = require('express-validator');
+const { register } = require('../../controllers/auth.controller');
 const router = express.Router();
 
-const db = require('../../models/index');
 
-router.post('/register', (req, res) => {
-
-    const {body} = req;
-    const user = db.User.build({
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        password: body.password,
-        image: body.image,
-        roleId: 1,
-    });
-    user.save();
-    res.json(user);
-});
+//@route  GET /api/members
+//@desc  como ususario quiero registrarme en el sistema 
+// para ser parte del mismo
+router.post(
+    '/register',
+    [
+        
+    ],
+    register
+);
 
 
 module.exports = router;
