@@ -1,12 +1,5 @@
 const { Testimonial } = require('./models');
 
-
-module.exports = {
-  findTestimonial,
-  updateTestimonial,
-};
-const { Testimonial } = require('../models');
-
 const addTestimonial = async (testimonialData) => {
   const newTestimonial = await Testimonial.create(testimonialData);
   console.log(newTestimonial);
@@ -14,4 +7,18 @@ const addTestimonial = async (testimonialData) => {
   return newTestimonial;
 };
 
-module.exports = { addTestimonial };
+const findTestimonial = async (id) => {
+  const testimonialToUpdate = await Testimonial.findOne({ where: { id: id } });
+  return testimonialToUpdate;
+};
+
+const updateTestimonial = async (testimonialInstance, newValues) => {
+  const updatedTestimonial = await testimonialInstance.update(newValues);
+  return updatedTestimonial;
+};
+
+module.exports = {
+  findTestimonial,
+  updateTestimonial,
+  addTestimonial,
+};
