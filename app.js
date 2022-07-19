@@ -6,7 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
-const verifyJWT = require('./middleware/verifyJWT');
+const validateToken = require('./middleware/validateToken');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -34,7 +34,7 @@ app.use('/api/members', membersRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/testimonials', testimonialsRouter);
 
-app.use(verifyJWT); // not implemented yet (all requests will have admin privileges)
+app.use(validateToken); // not implemented yet (all requests will have admin privileges)
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
