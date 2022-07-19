@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { postTestimonial } = require('../controllers/testimonials.controller.js');
+const { postTestimonial, putTestimonial } = require('../controllers/testimonials.controller.js');
 
 //@type POST
 //@route /api/testimonials
@@ -16,5 +16,7 @@ router.post(
   ],
   postTestimonial
 );
+
+router.put('/:id', putTestimonial);
 
 module.exports = router;
