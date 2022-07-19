@@ -18,8 +18,9 @@ const validateToken = (req, res, next) => {
             error: 'Forbidden, token expired or incorrect'
         });
         else {
-            //Se crea esta variable global para utilizar los datos del usuario donde se requiera una vez que su token haya sido validado
+            //Se crean estas variables globales para utilizar los datos del usuario donde se requiera una vez que su token haya sido validado
             req.user = decoded.UserInfo;
+            req.role = decoded.UserInfo.role;
             next();
         }
     })
