@@ -5,37 +5,4 @@ const generateToken = (UserInfo) => {
     return jwt.sign({UserInfo}, process.env.ACCESS_TOKEN_KEY, {expiresIn: '2h'});
 }
 
-/**Este servicio se debe utilizar como middleware para proteger
- * las rutas que requiren autenticación
- */
-const validateToken = (req, res, next) => {
-    const accessToken = req.headers['authorization'] || req.headers['Authorization'];
-
-    if(!accessToken) return res.status(401).json({
-        res: false,
-        error: 'Unauthorized'
-    });
-
-    if(!accessToken.toLowerCase().startsWith('bearer ')) return res.status(400).json({
-        res: false,
-        error: 'Authorization header must be Bearer <token>'
-    })
-
-    const token = accessToken.split(' ')[1];
-    jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
-        if(err) res.status(403).json({
-            res: false,
-            error: 'Forbidden, token expired or incorrect'
-        });
-        else {
-            //Se crea esta variable global para utilizar los datos del usuario donde se requiera una vez que su token haya sido validado
-            req.user = decoded.UserInfo;
-            next();
-        }
-    })
-}
-
-module.exports = {
-    generateToken,
-    validateToken
-}
+module.exports = generateToken;
