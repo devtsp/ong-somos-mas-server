@@ -8,8 +8,8 @@ const newsController = require('../../controllers/news.controller');
 
 router.route('/').post(verifyRoles(ROLES_LIST.Admin), newsController.postNew);
 
-//@route    GET /api/members
-//@desc     Crea miembro, Valida que se envíe el campo name, y el mismo sea un string
+//@route    PUT /api/news
+//@desc     Actualizar una novedad existente
 //@access   Private
 router.put(
   '/:id',
