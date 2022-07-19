@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { postMembers, putMember } = require('../controllers/members.controller.js');
+const { postMembers, putMember } = require('../../controllers/members.controller.js');
 
 //@route    GET /api/members
 //@desc     Crea miembro, Valida que se envíe el campo name, y el mismo sea un string

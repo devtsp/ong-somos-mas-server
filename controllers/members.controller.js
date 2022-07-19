@@ -38,7 +38,9 @@ const putMember = async (req, res) => {
       return res.status(404).json({ errors: `Member not found` });
     }
     const updatedMember = await editMember({ id, name, image, updatedAt: new Date() });
-    res.status(200).json({ msg: `Member edited`, member: updatedMember });
+    res
+      .status(200)
+      .json({ msg: `Member edited`, member: { id, name, image, updatedAt: new Date() } });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
