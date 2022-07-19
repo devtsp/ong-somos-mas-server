@@ -11,6 +11,7 @@ const verifyJWT = require('./middleware/verifyJWT');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const membersRouter = require('./routes/members.route.js');
+const activitiesRouter = require('./routes/activities.route.js');
 const apiRouter = require('./routes/api/index');
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/members', membersRouter);
+app.use('/api/activities', activitiesRouter);
 
 app.use(verifyJWT); // not implemented yet (all requests will have admin privileges)
 app.use('/api', apiRouter);
