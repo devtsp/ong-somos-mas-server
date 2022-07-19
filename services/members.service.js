@@ -1,9 +1,10 @@
-//const { Member } = require('./models/members.model.js'); // Falta crear el modelo del member
+const db = require('../models/index.js');
 
-const addMember = ({ name, image }) => {
+const addMember = async ({ name, image }) => {
   // Cuando este el modelo se hace la consulta a la base de datos
-  //Member.create({ name, image });
-  console.log({ name, image });
+  const member = db.Member.build({ name, image });
+  await member.save();
+  return member;
 };
 
 const editMember = ({ id, name, image }) => {
