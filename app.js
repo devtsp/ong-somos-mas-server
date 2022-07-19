@@ -6,10 +6,17 @@ const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
+const verifyJWT = require('./middleware/verifyJWT');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const membersRouter = require('./routes/members.route.js');
+<<<<<<< HEAD
 const testimonialsRouter = require('./routes/testimonials.route');
+=======
+const activitiesRouter = require('./routes/activities.route.js');
+const apiRouter = require('./routes/api/index');
+>>>>>>> main
 
 const app = express();
 app.use(cors());
@@ -27,7 +34,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/members', membersRouter);
-app.use('/testimonials', testimonialsRouter);
+app.use('/api/activities', activitiesRouter);
+
+app.use(verifyJWT); // not implemented yet (all requests will have admin privileges)
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
