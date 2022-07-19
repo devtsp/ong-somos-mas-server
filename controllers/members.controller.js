@@ -1,4 +1,4 @@
-const { addMember, editMember, searchMember } = require('../services/members.service.js');
+const { addMember, editMember, memberExists } = require('../services/members.service.js');
 const { validationResult } = require('express-validator');
 
 const postMembers = async (req, res) => {
@@ -33,12 +33,12 @@ const putMember = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const member = await searchMember({ id });
+    const member = await memberExists({ id });
     if (!member) {
       return res.status(404).json({ errors: `Member not found` });
     }
-    await editMember({ id, name, image });
-    res.status(200).json({ msg: `Member edited`, member: { id, name, image } });
+    const updatedMember = await editMember({ id, name, image, updatedAt: new Date() });
+    res.status(200).json({ msg: `Member edited`, member: updatedMember });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }

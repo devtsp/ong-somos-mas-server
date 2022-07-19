@@ -1,25 +1,19 @@
 const db = require('../models/index.js');
 
 const addMember = async ({ name, image }) => {
-  // Cuando este el modelo se hace la consulta a la base de datos
   const member = db.Member.build({ name, image });
   await member.save();
   return member;
 };
 
-const editMember = ({ id, name, image }) => {
-  // Cuando este el modelo se hace la consulta a la base de datos
-  // edita el miembro
-  // Member.update({ name, image }, { where: { id } });
-  console.log({ id, name, image });
+const editMember = async ({ id, name, image, updatedAt }) => {
+  const member = await db.Member.update({ name, image, updatedAt }, { where: { id } });
+  return member;
 };
 
-const searchMember = ({ id }) => {
-  // Cuando este el modelo se hace la consulta a la base de datos
-  // Se  fija si existe el miembro por el id
-  // const memberExists = await addMember.findOne({where:{id}});
-  // memberExists ? memberExists : null;
-  console.log({ id });
+const memberExists = async ({ id }) => {
+  const memberExists = await db.Member.findByPk(id);
+  return memberExists ? memberExists : null;
 };
 
-module.exports = { addMember, editMember, searchMember };
+module.exports = { addMember, editMember, memberExists };
