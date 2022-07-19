@@ -25,6 +25,7 @@ router.post(
 //@access   Private
 router.put(
   '/:id',
+  verifyRoles(ROLES_LIST.Admin),
   [
     check('name', 'Name is Required').not().isEmpty(),
     check('name', 'Name must be string').isString(),
