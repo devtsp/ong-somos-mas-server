@@ -17,6 +17,10 @@ router.post(
   postTestimonial
 );
 
+//@type PUT
+//@route /api/testimonials
+//@desc updates a testimonial for a given id param.
+//@access Private
 router.put('/:id', putTestimonial);
 
 module.exports = router;
