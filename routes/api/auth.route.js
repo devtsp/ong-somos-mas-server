@@ -4,7 +4,7 @@ const { register } = require('../../controllers/auth.controller');
 const router = express.Router();
 
 
-//@route  GET /api/members
+//@route  POST /api/register
 //@desc  como ususario quiero registrarme en el sistema 
 // para ser parte del mismo
 router.post(

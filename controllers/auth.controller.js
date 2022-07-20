@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const db = require('../models/index');
 
-const { encryptPassword } = require('../services/auth.services');
+const { encryptPassword } = require('../services/auth.service');
 
 const register = async (req, res) => {
     const err = validationResult(req);
