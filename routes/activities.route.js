@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const verifyRoles = require('../middleware/verifyRoles');
 const ROLES_LIST = require('../config/rolesList');
 
-const { postActivities } = require('../controllers/activities.controller.js');
+const { postActivities, putActivity } = require('../controllers/activities.controller.js');
 
 const fieldValidations = [
   check('name', 'Name is required'.not().isEmpty()),
@@ -23,6 +23,6 @@ router.post('/', verifyRoles(ROLES_LIST.Admin), fieldValidations, postActivities
 //@desc updates activity for a given id. Checks 'name' and 'content' fields to not be empty.
 //@access Private
 
-router.put('/:id', verifyRoles(ROLES_LIST.Admin), fieldValidations, putActivities);
+router.put('/:id', verifyRoles(ROLES_LIST.Admin), fieldValidations, putActivity);
 
 module.exports = router;
