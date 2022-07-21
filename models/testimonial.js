@@ -10,14 +10,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here;
     }
-  };
-  Testimonial.init({
-    name: DataTypes.STRING,    
-    image: DataTypes.STRING,
-    content: DataTypes.STRING     
-  }, {
-    sequelize,
-    modelName: 'Testimonial',
-  });
+  }
+  Testimonial.init(
+    {
+      name: DataTypes.STRING,
+      content: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Testimonial',
+      timestamps: false,
+    }
+  );
   return Testimonial;
 };

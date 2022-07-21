@@ -18,7 +18,7 @@ const postTestimonial = async (req, res) => {
     const newTestimonial = await addTestimonial({ name, content, image });
     res
       .status(200)
-      .json({ msg: `Testimonial succesfully created`, testimonial: { name, content, image } });
+      .json({ msg: `Testimonial succesfully created`, testimonial: { name, content } });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
@@ -32,7 +32,7 @@ const putTestimonial = async (req, res) => {
 
   const { id } = req.params;
 
-  const testimonialToUpdate = findTestimonial(id);
+  const testimonialToUpdate = await findTestimonial(id);
   if (testimonialToUpdate === null) {
     return res.status(404).json({ error: 'There is no testimonial with the given id' });
   }
@@ -40,10 +40,10 @@ const putTestimonial = async (req, res) => {
   const { name, content, image } = req.body;
 
   try {
-    const updatedTestimonial = await updateTestimonial({ name, content, image });
+    const updatedTestimonial = await updateTestimonial(testimonialToUpdate, { name, content });
     res
       .status(200)
-      .json({ msg: `Testimonial succesfully updated`, testimonial: { name, content, image } });
+      .json({ msg: `Testimonial succesfully updated`, testimonial: { name, content } });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
