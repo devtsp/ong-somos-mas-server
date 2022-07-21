@@ -16,4 +16,8 @@ const memberExists = async ({ id }) => {
   return memberExists ? memberExists : null;
 };
 
-module.exports = { addMember, editMember, memberExists };
+const destroyMember = async ({ id }) => {
+  await db.Member.destroy({ where: { id } });
+};
+
+module.exports = { addMember, editMember, memberExists, destroyMember };
