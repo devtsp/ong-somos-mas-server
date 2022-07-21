@@ -1,9 +1,13 @@
 const db = require('../models/index.js');
 
 const addMember = async ({ name, image }) => {
-  const member = db.Member.build({ name, image });
+  const member = await db.Member.build({ name, image });
   await member.save();
   return member;
+};
+
+const getAllMembers = async () => {
+  return await db.Member.findAll();
 };
 
 const editMember = async ({ id, name, image, updatedAt }) => {
@@ -16,4 +20,4 @@ const memberExists = async ({ id }) => {
   return memberExists ? memberExists : null;
 };
 
-module.exports = { addMember, editMember, memberExists };
+module.exports = { addMember, editMember, memberExists, getAllMembers };
