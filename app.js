@@ -29,11 +29,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use(validateToken); 
+app.use('/api', apiRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/testimonials', testimonialsRouter);
-
-app.use(validateToken); // not implemented yet (all requests will have admin privileges)
-app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
