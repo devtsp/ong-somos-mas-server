@@ -1,9 +1,13 @@
 const db = require('../models/index.js');
 
 const addMember = async ({ name, image }) => {
-  const member = db.Member.build({ name, image });
+  const member = await db.Member.build({ name, image });
   await member.save();
   return member;
+};
+
+const getAllMembers = async () => {
+  return await db.Member.findAll();
 };
 
 const editMember = async ({ id, name, image, updatedAt }) => {
@@ -20,4 +24,4 @@ const destroyMember = async ({ id }) => {
   await db.Member.destroy({ where: { id } });
 };
 
-module.exports = { addMember, editMember, memberExists, destroyMember };
+module.exports = { addMember, editMember, memberExists, getAllMembers, destroyMember };
