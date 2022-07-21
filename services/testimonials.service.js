@@ -1,4 +1,4 @@
-const { Testimonial } = require('./models');
+const { Testimonial } = require('../models');
 
 const addTestimonial = async (testimonialData) => {
   const newTestimonial = await Testimonial.create(testimonialData);
