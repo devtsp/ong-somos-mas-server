@@ -1,14 +1,15 @@
 const { Testimonial } = require('../models');
 
 const addTestimonial = async (testimonialData) => {
-  const newTestimonial = await Testimonial.create(testimonialData);
-  console.log(newTestimonial);
+  const newTestimonial = await Testimonial.create({ ...testimonialData });
   //Mock response:
   return newTestimonial;
 };
 
 const findTestimonial = async (id) => {
   const testimonialToUpdate = await Testimonial.findOne({ where: { id: id } });
+  console.log('se encontró?');
+  console.log(testimonialToUpdate);
   return testimonialToUpdate;
 };
 
