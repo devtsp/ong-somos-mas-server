@@ -2,6 +2,7 @@ const {
   addMember,
   editMember,
   memberExists,
+  getAllMembers,
   destroyMember,
 } = require('../services/members.service.js');
 const { validationResult } = require('express-validator');
@@ -26,6 +27,16 @@ const postMembers = async (req, res) => {
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
+};
+
+const getMembers = async (req, res) => {
+  try {
+    members = await getAllMembers();
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+
+  res.status(200).json({ members });
 };
 
 const putMember = async (req, res) => {
@@ -67,4 +78,4 @@ const deleteMember = async (req, res) => {
   }
 };
 
-module.exports = { postMembers, putMember, deleteMember };
+module.exports = { postMembers, putMember, getMembers, deleteMember };
