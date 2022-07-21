@@ -1,5 +1,9 @@
 const { validationResult } = require('express-validator');
-const { addTestimonial } = require('../services/testimonials.service');
+const {
+  addTestimonial,
+  findTestimonial,
+  updateTestimonial,
+} = require('../services/testimonials.service');
 
 const postTestimonial = async (req, res) => {
   const errors = validationResult(req);
@@ -20,4 +24,29 @@ const postTestimonial = async (req, res) => {
   }
 };
 
-module.exports = { postTestimonial };
+const putTestimonial = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { id } = req.params;
+
+  const testimonialToUpdate = findTestimonial(id);
+  if (testimonialToUpdate === null) {
+    return res.status(404).json({ error: 'There is no testimonial with the given id' });
+  }
+
+  const { name, content, image } = req.body;
+
+  try {
+    const updatedTestimonial = await updateTestimonial({ name, content, image });
+    res
+      .status(200)
+      .json({ msg: `Testimonial succesfully updated`, testimonial: { name, content, image } });
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+};
+
+module.exports = { postTestimonial, putTestimonial };
