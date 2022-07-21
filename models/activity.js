@@ -10,20 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  }
-  Activity.init(
-    {
-      name: DataTypes.STRING,
-      image: DataTypes.STRING,
-      content: DataTypes.STRING,
-      createdAt: DataTypes.DATE,
-      deletedAt: DataTypes.DATE,
-    },
-    {
-      sequelize,
-      modelName: 'Activity',
-      timestamps: false,
-    }
-  );
+  };
+  Activity.init({
+    name: DataTypes.STRING,
+    image: DataTypes.STRING,
+    content: DataTypes.STRING,
+    deletedAt: DataTypes.DATE
+  }, {
+    sequelize,
+    modelName: 'Activity',
+  });
   return Activity;
 };
