@@ -10,4 +10,9 @@ const comparePassword = async(password, hash) => {
     return await bcrypt.compare(password, hash);
 };
 
-module.exports = {generateToken, comparePassword};
+const encryptPassword = async (password) => {
+    const salt = await bcrypt.genSalt(8);
+    return await bcrypt.hash(password, salt);
+};
+
+module.exports = {generateToken, encryptPassword, comparePassword};

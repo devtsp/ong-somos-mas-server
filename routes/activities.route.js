@@ -4,7 +4,12 @@ const { check } = require('express-validator');
 const verifyRoles = require('../middleware/verifyRoles');
 const ROLES_LIST = require('../config/rolesList');
 
-const { postActivities } = require('../controllers/activities.controller.js');
+const { postActivities, putActivity } = require('../controllers/activities.controller.js');
+
+const fieldValidations = [
+  check('name', 'Name is required').not().isEmpty(),
+  check('content', 'Content is required').not().isEmpty(),
+];
 
 //@type POST
 //@route /api/activities
