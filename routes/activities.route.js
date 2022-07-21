@@ -7,8 +7,8 @@ const ROLES_LIST = require('../config/rolesList');
 const { postActivities, putActivity } = require('../controllers/activities.controller.js');
 
 const fieldValidations = [
-  check('name', 'Name is required'.not().isEmpty()),
-  check('content', 'Content is required'.not().isEmpty()),
+  check('name', 'Name is required').not().isEmpty(),
+  check('content', 'Content is required').not().isEmpty(),
 ];
 
 //@type POST
