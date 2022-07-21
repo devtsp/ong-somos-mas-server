@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { postMembers, putMember, getMembers } = require('../../controllers/members.controller.js');
+const {
+  postMembers,
+  putMember,
+  getMembers,
+  deleteMember,
+} = require('../../controllers/members.controller.js');
 
 const verifyRoles = require('../../middleware/verifyRoles');
 const ROLES_LIST = require('../../config/rolesList');
@@ -37,5 +42,10 @@ router.put(
   ],
   putMember
 );
+
+//@route    DELETE /api/members
+//@desc     Valida que un miembro existe por su id y lo elimina, caso contrario devolver un error
+//@access   Private
+router.delete('/:id', verifyRoles(ROLES_LIST.Admin), deleteMember);
 
 module.exports = router;
