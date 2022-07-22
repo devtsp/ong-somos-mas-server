@@ -8,7 +8,6 @@ const addTestimonial = async (testimonialData) => {
 
 const findTestimonial = async (id) => {
   const testimonialToUpdate = await Testimonial.findOne({ where: { id: id } });
-  console.log('se encontró?');
   console.log(testimonialToUpdate);
   return testimonialToUpdate;
 };
