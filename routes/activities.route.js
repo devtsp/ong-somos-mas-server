@@ -13,16 +13,18 @@ const fieldValidations = [
 
 //@type POST
 //@route /api/activities
-//@desc creates new activity. Checks 'name' and 'content' fields to not be empty.
+//@desc creates new activity. Checks 'name' and 'content' fields to not be empty. 
 //@access Private
 
-router.post('/', verifyRoles(ROLES_LIST.Admin), fieldValidations, postActivities);
 
-//@type PUT
-//@route /api/activities
-//@desc updates activity for a given id. Checks 'name' and 'content' fields to not be empty.
-//@access Private
-
-router.put('/:id', verifyRoles(ROLES_LIST.Admin), fieldValidations, putActivity);
+router.post(
+    '/',
+    verifyRoles(ROLES_LIST.Admin),
+    [
+        check('name', 'Name is required'.not().isEmpty()),
+        check('content', 'Content is required'.not().isEmpty()),
+    ],
+    postActivities
+);
 
 module.exports = router;
