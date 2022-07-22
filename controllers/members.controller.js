@@ -4,6 +4,7 @@ const {
   memberExists,
   getAllMembers,
   destroyMember,
+  getMemberById,
 } = require('../services/members.service.js');
 const { validationResult } = require('express-validator');
 
@@ -71,8 +72,11 @@ const deleteMember = async (req, res) => {
     if (!member) {
       return res.status(404).json({ errors: `Member not found` });
     }
+    const memberDeleted = await getMemberById({ id });
+    console.log(memberDeleted);
+
     await destroyMember({ id });
-    res.status(200).json({ msg: `Member deleted` });
+    res.status(200).json({ msg: `Member deleted`, member: memberDeleted });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }

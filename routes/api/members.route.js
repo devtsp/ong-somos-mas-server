@@ -17,7 +17,7 @@ const ROLES_LIST = require('../../config/rolesList');
 //@access   Private
 router.post(
   '/',
-  verifyRoles(ROLES_LIST.Admin),
+//   verifyRoles(ROLES_LIST.Admin),
   [
     check('name', 'Name is Required').not().isEmpty(),
     check('name', 'Name must be string').isString(),
@@ -35,7 +35,7 @@ router.post('/', verifyRoles(ROLES_LIST.Admin), getMembers);
 //@access   Private
 router.put(
   '/:id',
-  verifyRoles(ROLES_LIST.Admin),
+//   verifyRoles(ROLES_LIST.Admin),
   [
     check('name', 'Name is Required').not().isEmpty(),
     check('name', 'Name must be string').isString(),
@@ -46,6 +46,8 @@ router.put(
 //@route    DELETE /api/members
 //@desc     Valida que un miembro existe por su id y lo elimina, caso contrario devolver un error
 //@access   Private
-router.delete('/:id', verifyRoles(ROLES_LIST.Admin), deleteMember);
+router.delete('/:id',
+    // verifyRoles(ROLES_LIST.Admin),
+    deleteMember);
 
 module.exports = router;
