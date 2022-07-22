@@ -14,7 +14,6 @@ const login = async(req, res) => {
     
     // Verify if email already exists
     const databaseUser = await db.User.findOne({where: {email}});
-    
 
     if (databaseUser === null) {
         return res.status(404).json({msg: "User with that email doesn't exist"});
@@ -27,7 +26,7 @@ const login = async(req, res) => {
         return res.status(401).json({msg: 'Invalid credentials'});
     };
     // return to user if it exist and the password is valid
-    const newToken = generateToken(databaseUser.email);
+    const newToken = generateToken(databaseUser.dataValues);
     return res.status(200).json({
         msg: 'Logged successfully',
         token: newToken
@@ -50,7 +49,7 @@ const register = async (req, res) => {
         email: body.email,
         password: password,
         image: body.image,
-        roleId: 1,
+        roleId: body.roleId || 2,
     });
     user.save()
         .then(() => {
