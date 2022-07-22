@@ -19,10 +19,10 @@ const fieldValidations = [
 
 router.post(
     '/',
-    verifyRoles(ROLES_LIST.Admin),
+    // verifyRoles(ROLES_LIST.Admin),
     [
-        check('name', 'Name is required'.not().isEmpty()),
-        check('content', 'Content is required'.not().isEmpty()),
+        check('name', 'Name is required').not().isEmpty(),
+        check('content', 'Content is required').not().isEmpty(),
     ],
     postActivities
 );
