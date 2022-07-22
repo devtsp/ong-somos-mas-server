@@ -14,12 +14,12 @@ const fieldValidations = [
 //@route /api/testimonials
 //@desc creates a new testimonial. Checks 'name' and 'content' fields not to be empty;
 //@access Private
-router.post('/', fieldValidations, postTestimonial);
+router.post('/', verifyRoles(ROLES_LIST.Admin), fieldValidations, postTestimonial);
 
 //@type PUT
 //@route /api/testimonials
 //@desc updates a testimonial for a given id param.
 //@access Private
-router.put('/:id', fieldValidations, putTestimonial);
+router.put('/:id', verifyRoles(ROLES_LIST.Admin), fieldValidations, putTestimonial);
 
 module.exports = router;
