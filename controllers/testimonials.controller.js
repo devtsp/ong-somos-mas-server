@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { addTestimonial } = require('../services/testimonials.service');
+const { addTestimonial, findTestimonial, updateTestimonial } = require('../services/testimonials.service');
 
 const postTestimonial = async (req, res) => {
   const errors = validationResult(req);
