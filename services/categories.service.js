@@ -6,4 +6,13 @@ const addCategory = async ({ name, description, createdAt, updatedAt }) => {
   return category;
 };
 
-module.exports = { addCategory };
+const categoryExists = async ({ id }) => {
+  const categoryExists = await db.Category.findByPk(id);
+  return categoryExists ? categoryExists : null;
+};
+
+const destroyCategory = async ({ id }) => {
+  await db.Category.destroy({ where: { id } });
+};
+
+module.exports = { addCategory, categoryExists, destroyCategory };
