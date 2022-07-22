@@ -10,7 +10,7 @@ const findActivity = async (id) => {
 };
 
 const updateActivity = async (activityInstance, newValues) => {
-  const updatedActivity = await Activity.update(newValues);
+  const updatedActivity = await activityInstance.update(newValues);
   return updatedActivity;
 };
 
