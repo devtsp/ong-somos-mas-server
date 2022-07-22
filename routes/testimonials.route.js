@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { postTestimonial, putTestimonial } = require('../controllers/testimonials.controller.js');
+const { postTestimonial, putTestimonial, deleteTestimonial } = require('../controllers/testimonials.controller.js');
 
 const fieldValidations = [
   check('name', 'Name is required').not().isEmpty(),
@@ -19,5 +19,11 @@ router.post('/', fieldValidations, postTestimonial);
 //@desc updates a testimonial for a given id param.
 //@access Private
 router.put('/:id', fieldValidations, putTestimonial);
+
+router.delete('/:id', 
+  //fieldValidations,
+  deleteTestimonial
+);
+
 
 module.exports = router;

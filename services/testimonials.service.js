@@ -7,7 +7,7 @@ const addTestimonial = async (testimonialData) => {
 };
 
 const findTestimonial = async (id) => {
-  const testimonialToUpdate = await Testimonial.findOne({ where: { id: id } });
+  const testimonialToUpdate = await Testimonial.findByPk(id);
   console.log('se encontró?');
   console.log(testimonialToUpdate);
   return testimonialToUpdate;
@@ -18,8 +18,13 @@ const updateTestimonial = async (testimonialInstance, newValues) => {
   return updatedTestimonial;
 };
 
+const destroyTestimonial = async (id) => {
+  await Testimonial.destroy({ where: { id } });  
+};
+
 module.exports = {
   findTestimonial,
   updateTestimonial,
   addTestimonial,
+  destroyTestimonial
 };
