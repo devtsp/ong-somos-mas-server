@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-//app.use(validateToken); 
+// app.use(validateToken); 
 app.use('/api', apiRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/testimonials', testimonialsRouter);
