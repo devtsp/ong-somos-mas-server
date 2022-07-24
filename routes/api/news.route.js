@@ -6,6 +6,11 @@ const ROLES_LIST = require('../../config/rolesList');
 
 const newsController = require('../../controllers/news.controller');
 
+//@route    GET /api/news
+//@desc     Retrieve all entries of type: "news"
+//@access   Private (Admin)
+router.get('/', verifyRoles(ROLES_LIST.Admin), newsController.getNews);
+
 router.route('/').post(verifyRoles(ROLES_LIST.Admin), newsController.postNew);
 
 //@route    PUT /api/news
