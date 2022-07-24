@@ -32,4 +32,9 @@ router.put(
   newsController.putNews
 );
 
+//@route    DELETE /api/news/:id
+//@desc     Post entry of type: "news"
+//@access   Private (Admin)
+router.delete('/:id', newsController.deleteNew);
+
 module.exports = router;
