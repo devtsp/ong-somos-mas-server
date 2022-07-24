@@ -25,9 +25,22 @@ const editNews = async ({ id, content, image, categoryId, type, updatedAt, delet
   return news;
 };
 
+const destroyNew = async (id) => {
+  const savedInDb = await db.Entry.findOne({ where: { id, type: 'news' } });
+  await db.Entry.destroy({ where: { id } });
+  return savedInDb;
+};
+
 const newsExists = async ({ id }) => {
   const newsExists = await db.Entry.findByPk(id);
   return newsExists ? newsExists : null;
 };
 
-module.exports = { postNewService, editNews, newsExists, retrieveNews, retrieveNewById };
+module.exports = {
+  postNewService,
+  editNews,
+  newsExists,
+  retrieveNews,
+  retrieveNewById,
+  destroyNew,
+};
