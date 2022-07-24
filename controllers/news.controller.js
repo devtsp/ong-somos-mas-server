@@ -1,4 +1,5 @@
 const { postNewService, editNews, newsExists } = require('../services/news.service');
+const { validationResult } = require('express-validator');
 
 const postNew = async (req, res) => {
   if (!req?.body) {
@@ -10,10 +11,6 @@ const postNew = async (req, res) => {
 };
 
 const putNews = async (req, res) => {
-  if (!req?.body) {
-    return res.status(404).json({ errors: 'Request body missing' });
-  }
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });

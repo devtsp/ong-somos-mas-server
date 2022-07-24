@@ -33,7 +33,7 @@ const putActivity = async (req, res) => {
   const { name, content } = req.body;
 
   try {
-    const updatedActivity = await updateActivity({ name, content });
+    const updatedActivity = await updateActivity(activityToUpdate, { name, content });
     res.status(200).json({ msg: `Activity succesfully updated`, activity: { name, content } });
   } catch (error) {
     res.status(500).json({ errors: error.message });

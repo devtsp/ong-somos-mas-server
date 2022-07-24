@@ -10,6 +10,10 @@ const getAllMembers = async () => {
   return await db.Member.findAll();
 };
 
+const getMemberById = async ({ id }) => {
+  return await db.Member.findOne({ where: { id } });
+};
+
 const editMember = async ({ id, name, image, updatedAt }) => {
   const member = await db.Member.update({ name, image, updatedAt }, { where: { id } });
   return member;
@@ -24,4 +28,11 @@ const destroyMember = async ({ id }) => {
   await db.Member.destroy({ where: { id } });
 };
 
-module.exports = { addMember, editMember, memberExists, getAllMembers, destroyMember };
+module.exports = {
+  addMember,
+  editMember,
+  memberExists,
+  getAllMembers,
+  destroyMember,
+  getMemberById,
+};
