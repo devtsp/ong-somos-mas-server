@@ -1,5 +1,10 @@
 const db = require('../models/index');
 
+const retrieveNewById = async (id) => {
+  const foundNew = await db.Entry.findByPk(id);
+  return foundNew;
+};
+
 const retrieveNews = async () => {
   const news = await db.Entry.findAll({
     attributes: ['name', 'image', 'createdAt'],
@@ -25,4 +30,4 @@ const newsExists = async ({ id }) => {
   return newsExists ? newsExists : null;
 };
 
-module.exports = { postNewService, editNews, newsExists, retrieveNews };
+module.exports = { postNewService, editNews, newsExists, retrieveNews, retrieveNewById };

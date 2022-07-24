@@ -9,8 +9,8 @@ const { validationResult } = require('express-validator');
 
 const getNewById = async (req, res) => {
   try {
-    const news = await retrieveNewById(req.params.id);
-    return res.json(news);
+    const foundNew = await retrieveNewById(req.params.id);
+    return res.json(foundNew);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
