@@ -38,10 +38,11 @@ const putCategory = async (req, res) => {
   const { name, description } = req.body;
   const category = await categoryExists({ id });
   if (!category) {
-    return res.status(404).json({ errors: `Category not found` });
+    return res.status(404).json({ errors: `Category not found or has been deleted` });
   }
   try {
-    const categoryUpdated = await updateCategory({ name, description, updatedAt: new Date() });
+    await updateCategory({ id, name, description, updatedAt: new Date() });
+    const categoryUpdated = await getCategoryById({ id });
     res.status(200).json({ msg: `Category updated`, category: categoryUpdated });
   } catch (error) {
     res.status(500).json({ errors: error.message });
@@ -54,11 +55,11 @@ const deleteCategory = async (req, res) => {
     const category = await categoryExists({ id });
 
     if (!category) {
-      return res.status(404).json({ errors: `Category not found` });
+      return res.status(404).json({ errors: `Category not found or has been deleted` });
     }
 
+    await updateCategory({ id, deletedAt: new Date() });
     const categoryDeleted = await getCategoryById({ id });
-    await destroyCategory({ id });
 
     res.status(200).json({ msg: `Category deleted`, category: categoryDeleted });
   } catch (error) {

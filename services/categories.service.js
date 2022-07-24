@@ -7,15 +7,12 @@ const addCategory = async ({ name, description, createdAt, updatedAt }) => {
 };
 
 const categoryExists = async ({ id }) => {
-  const categoryExists = await Category.findByPk(id);
+  const categoryExists = await Category.findOne({ where: { id, deletedAt: null } });
   return categoryExists ? categoryExists : null;
 };
 
-const updateCategory = async ({ id, name, description, updatedAt, deletedAt = null }) => {
-  const category = await Category.update(
-    { name, description, updatedAt, deletedAt },
-    { where: { id } }
-  );
+const updateCategory = async (params) => {
+  const category = await Category.update({ ...params }, { where: { id: params.id } });
   return category;
 };
 
