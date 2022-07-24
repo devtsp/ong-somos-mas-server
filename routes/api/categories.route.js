@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const { postCategory } = require('../../controllers/categories.controller');
+const { postCategory, deleteCategory } = require('../../controllers/categories.controller');
 
 //@route    POTS /api/categories
 //@desc     Agregar una categoría nueva, valida que se envíe el campo name y que sea un string
@@ -15,5 +15,10 @@ router.post(
   ],
   postCategory
 );
+
+//@route    POTS /api/categories
+//@desc     Valida que la categoría existe y la elimina, caso contrario devuelve un error
+//@access   Private
+router.delete('/:id', deleteCategory);
 
 module.exports = router;
