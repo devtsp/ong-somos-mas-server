@@ -11,6 +11,14 @@ const categoryExists = async ({ id }) => {
   return categoryExists ? categoryExists : null;
 };
 
+const updateCategory = async ({ id, name, description, updatedAt, deletedAt = null }) => {
+  const category = await Category.update(
+    { name, description, updatedAt, deletedAt },
+    { where: { id } }
+  );
+  return category;
+};
+
 const destroyCategory = async ({ id }) => {
   await Category.destroy({ where: { id } });
 };
@@ -19,4 +27,4 @@ const getCategoryById = async ({ id }) => {
   return await Category.findOne({ where: { id } });
 };
 
-module.exports = { addCategory, categoryExists, destroyCategory, getCategoryById };
+module.exports = { addCategory, categoryExists, updateCategory, destroyCategory, getCategoryById };
