@@ -1,4 +1,4 @@
-const { postNewService, editNews, newsExists } = require('../services/news.service');
+const { postNewService, editNews, newsExists, retrieveNews } = require('../services/news.service');
 const { validationResult } = require('express-validator');
 
 const getNews = async (req, res) => {
