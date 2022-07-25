@@ -3,10 +3,16 @@ const router = express.Router();
 const { check } = require('express-validator');
 
 const {
+  getCategories,
   postCategory,
   deleteCategory,
   putCategory,
 } = require('../../controllers/categories.controller');
+
+//@route    GET /api/categories
+//@desc     Agregar una categoría nueva, valida que se envíe el campo name y que sea un string
+//@access   Private
+router.get('/', getCategories);
 
 //@route    POTS /api/categories
 //@desc     Agregar una categoría nueva, valida que se envíe el campo name y que sea un string
@@ -32,7 +38,7 @@ router.put(
   putCategory
 );
 
-//@route    POTS /api/categories
+//@route    DELETE /api/categories
 //@desc     Valida que la categoría existe y la elimina, caso contrario devuelve un error
 //@access   Private
 router.delete('/:id', deleteCategory);

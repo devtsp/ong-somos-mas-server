@@ -1,5 +1,13 @@
 const { Category } = require('../models/index.js');
 
+const getAllCategories = async () => {
+  return await Category.findAll({
+    where: {
+      deletedAt: null,
+    },
+  });
+};
+
 const addCategory = async ({ name, description, createdAt, updatedAt }) => {
   const category = Category.build({ name, description, createdAt, updatedAt });
   await category.save();
@@ -16,12 +24,14 @@ const updateCategory = async (params) => {
   return category;
 };
 
-const destroyCategory = async ({ id }) => {
-  await Category.destroy({ where: { id } });
-};
-
 const getCategoryById = async ({ id }) => {
   return await Category.findOne({ where: { id } });
 };
 
-module.exports = { addCategory, categoryExists, updateCategory, destroyCategory, getCategoryById };
+module.exports = {
+  getAllCategories,
+  addCategory,
+  categoryExists,
+  updateCategory,
+  getCategoryById,
+};

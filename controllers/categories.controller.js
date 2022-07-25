@@ -1,11 +1,20 @@
 const { validationResult } = require('express-validator');
 const {
+  getAllCategories,
   addCategory,
   categoryExists,
   getCategoryById,
   updateCategory,
-  destroyCategory,
 } = require('../services/categories.service');
+
+const getCategories = async (req, res) => {
+  try {
+    categories = await getAllCategories();
+    res.status(200).json({ categories });
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+};
 
 const postCategory = async (req, res) => {
   const errors = validationResult(req);
@@ -67,4 +76,4 @@ const deleteCategory = async (req, res) => {
   }
 };
 
-module.exports = { postCategory, deleteCategory, putCategory };
+module.exports = { postCategory, deleteCategory, putCategory, getCategories };
