@@ -32,12 +32,11 @@ const postMembers = async (req, res) => {
 
 const getMembers = async (req, res) => {
   try {
-    members = await getAllMembers();
+    const members = await getAllMembers();
+    res.status(200).json({ members });
   } catch (error) {
     res.status(500).json({ errors: error.message });
   }
-
-  res.status(200).json({ members });
 };
 
 const putMember = async (req, res) => {
