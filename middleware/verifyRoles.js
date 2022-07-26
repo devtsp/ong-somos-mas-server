@@ -1,10 +1,12 @@
+const jwt_decode = require('jwt-decode');
+
 const verifyRoles = (...allowedRoles) => {
   return (req, res, next) => {
-    if (!req?.role) return res.status(401).json({ res: false, error: 'No user Role detected' });
-    const isAuthorized = allowedRoles.includes(req.role);
-    if (!isAuthorized)
-      return res.status(401).json({ res: false, error: 'Forbidden, role unauthorized' });
-
+    const { UserInfo } = jwt_decode(req.token);
+    const { roleId: role } = UserInfo;
+    if (!role) return res.sendStatus(401);
+    const isAuthorized = allowedRoles.includes(role);
+    if (!isAuthorized) return res.sendStatus(403);
     next();
   };
 };

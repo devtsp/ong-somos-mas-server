@@ -1,3 +1,3 @@
-const ROLES_LIST = { Admin: 1, Standard: 2 };
+const ROLES_LIST = { Admin: 1, User: 2 };
 
 module.exports = ROLES_LIST;
