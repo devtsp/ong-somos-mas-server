@@ -4,6 +4,11 @@ const { check } = require('express-validator');
 
 const newsController = require('../../controllers/news.controller');
 
+//@route    GET /api/news/:id
+//@desc     Retrieve entry of type: "news" by id
+//@access   Private (Admin)
+router.get('/:id', newsController.getNewById);
+
 //@route    GET /api/news
 //@desc     Retrieve all entries of type: "news"
 //@access   Private (Admin)
