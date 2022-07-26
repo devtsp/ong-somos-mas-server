@@ -1,7 +1,7 @@
 const db = require('../models/index.js');
 
 
-const getAllContacts = async () => {
+const getContacts = async () => {
   const contacts = await db.Contact.findAll({ where: { deletedAt: null } });
   return contacts;
 };
@@ -9,5 +9,5 @@ const getAllContacts = async () => {
 
 
 module.exports = {
-    getAllContacts
+  getContacts
 };
