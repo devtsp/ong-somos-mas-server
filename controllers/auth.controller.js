@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const { default: jwtDecode } = require('jwt-decode');
 
 const ROLES_LIST = require('../config/rolesList');
 const db = require('../models/index');
@@ -61,6 +62,13 @@ const register = async (req, res) => {
     .catch((err) => {
       res.send(err).status(500);
     });
+
+const authMe = (req, res) => {
+
+  const token = req.token.split(' ')[1];
+  const user = jwtDecode(token);
+  res.status(200).json(user);
+
 };
 
-module.exports = { register, login };
+module.exports = { register, login, authMe };
