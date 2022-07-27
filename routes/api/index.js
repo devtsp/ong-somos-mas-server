@@ -9,5 +9,6 @@ router.use('/auth', require('./auth.route'));
 router.use('/news', validateToken, verifyRoles(ROLES_LIST.Admin), require('./news.route'));
 router.use('/members', require('./members.route'));
 router.use('/contacts', require('./contacts.route'));
+router.use('/organizations', require('./organizations.route'));
 
 module.exports = router;
