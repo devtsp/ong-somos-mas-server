@@ -14,7 +14,7 @@ const getOrganization = async (req, res) => {
     }
     const { name, image, phone, address, welcomeText } = organization.dataValues;
     return res.json({
-      name, image, phone, address, welcomeText
+      name, image, phone, address, welcomeText, id: organizationId
     })
     */
     res.json({
