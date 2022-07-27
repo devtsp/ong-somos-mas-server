@@ -12,21 +12,21 @@ const login = async (req, res) => {
 
   if (!err.isEmpty()) {
     return res.status(400).json({ err: err.array() });
-  }
+  };
 
   // Verify if email already exists
   const databaseUser = await db.User.findOne({ where: { email } });
 
   if (databaseUser === null) {
     return res.status(404).json({ msg: "User with that email doesn't exist" });
-  }
+  };
 
   // if email exist compare encrypted password with the req password
   const comparationResult = comparePassword(password, databaseUser.password);
 
   if (comparationResult === false) {
     return res.status(401).json({ msg: 'Invalid credentials' });
-  }
+  };
   // return to user if it exist and the password is valid
   const newToken = generateToken(databaseUser.dataValues);
   return res.status(200).json({
@@ -40,28 +40,35 @@ const register = async (req, res) => {
 
   if (!err.isEmpty()) {
     return res.status(400).json({ err: err.array() });
-  }
-  const { body } = req;
+  };
 
+  const { body } = req;
+  const userFound = await db.User.findOne({where: {email: body.email}});
   const password = await encryptPassword(body.password);
 
-  const user = db.User.build({
-    firstName: body.firstName,
-    lastName: body.lastName,
-    email: body.email,
-    password: password,
-    image: body.image,
-    roleId: body.roleId || ROLES_LIST.User,
-  });
+  if( userFound == null) {
 
-  user
-    .save()
-    .then(() => {
-      res.json(user).status(200);
-    })
-    .catch((err) => {
-      res.send(err).status(500);
+    const user = db.User.build({
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      password: password,
+      image: body.image,
+      roleId: body.roleId || ROLES_LIST.User,
     });
+  
+    user
+      .save()
+      .then(() => {
+        res.json(user).status(200);
+      })
+      .catch((err) => {
+        res.send(err).status(500);
+      });
+  } else {
+    res.status(400).json({msg: "User already exists with that email"});
+  };
+};
 
 const authMe = (req, res) => {
 
