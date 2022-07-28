@@ -1,10 +1,10 @@
-const { getAllContacts } = require('../services/contacts.service');
+const { getContacts } = require('../services/contacts.service');
 
 
 const getAllContacts = async(req, res) => {
 
     try {
-        const contacts = await getAllContacts();
+        const contacts = await getContacts();
         res.status(200).json(contacts);
         
     } catch (error) {
