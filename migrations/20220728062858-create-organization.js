@@ -23,6 +23,15 @@ module.exports = {
       welcomeText: {
         type: Sequelize.STRING(2500),
       },
+      facebook: {
+        type: Sequelize.STRING,
+      },
+      linkedin: {
+        type: Sequelize.STRING,
+      },
+      instagram: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

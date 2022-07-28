@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       address: DataTypes.STRING,
       welcomeText: DataTypes.STRING,
+      facebook: DataTypes.STRING,
+      linkedin: DataTypes.STRING,
+      instagram: DataTypes.STRING,
       //Should socialMedia be defined here or instead use a separate model for it and associate it to Organization?
     },
     {
