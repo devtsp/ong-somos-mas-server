@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       welcomeText: {
-        type: Sequelize.STRING(500),
+        type: Sequelize.STRING(2500),
       },
       createdAt: {
         allowNull: false,
