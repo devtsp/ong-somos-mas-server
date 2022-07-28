@@ -20,7 +20,7 @@ router.post('/', /*verifyRoles(ROLES_LIST.Admin),*/ fieldValidations, postTestim
 //@route /api/testimonials
 //@desc updates a testimonial for a given id param.
 //@access Private
-router.put('/:id', verifyRoles(ROLES_LIST.Admin), fieldValidations, putTestimonial);
+router.put('/:id', fieldValidations, putTestimonial);
 
 router.delete('/:id', 
  //(ROLES_LIST.Admin),

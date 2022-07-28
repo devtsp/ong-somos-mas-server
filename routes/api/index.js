@@ -10,5 +10,6 @@ router.use('/news', validateToken, verifyRoles(ROLES_LIST.Admin), require('./new
 router.use('/members', require('./members.route'));
 router.use('/categories', require('./categories.route'));
 router.use('/contacts', require('./contacts.route'));
+router.use('/organizations', require('./organizations.route'));
 
 module.exports = router;
