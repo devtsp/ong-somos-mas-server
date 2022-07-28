@@ -17,13 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       email: DataTypes.STRING,
       message: DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       deletedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: 'Contact',
       //This allows the soft delete
-      paranoid: true,
+      //   paranoid: true,
     }
   );
   return Contact;
