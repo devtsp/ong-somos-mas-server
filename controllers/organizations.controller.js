@@ -5,7 +5,7 @@ const getOrganizationById = async (req, res) => {
   try {
     const organization = await findOrganization(organizationId);
     if (organization == null) {
-      res.status(404).json({ error: 'There is no organization with the given id' });
+      return res.status(404).json({ error: 'There is no organization with the given id' });
     }
     const { name, image, phone, address, welcomeText, facebook, linkedin, instagram } =
       organization;
@@ -20,7 +20,7 @@ const getOrganizationById = async (req, res) => {
       instagram,
     });
   } catch (error) {
-    res.status(500).json({ errors: error.message });
+    return res.status(500).json({ errors: error.message });
   }
 };
 
