@@ -6,7 +6,7 @@ const findOrganization = async (id) => {
 };
 
 const updateOrganization = async (organizationInstance, newValues) => {
-  const updatedOrganization = await Organization.update(newValues);
+  const updatedOrganization = await organizationInstance.update(newValues);
   return updatedOrganization;
 };
 
