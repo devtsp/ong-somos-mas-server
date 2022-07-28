@@ -28,4 +28,4 @@ const userDelete = async (req, res) => {
   }
 };
 
-module.exports = { userDelete };
+module.exports = { userDelete, getUsers };
