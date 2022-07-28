@@ -8,7 +8,7 @@ const ROLES_LIST = require('../../config/rolesList');
 
 //@route    GET /api/users
 //@desc     Devuelve todos los Usuarios
-//@access   Private (Admin)
+//@access   Private (Admin )
 router.get('/', [validateToken, verifyRoles(ROLES_LIST.Admin)], getUsers);
 
 module.exports = router;
