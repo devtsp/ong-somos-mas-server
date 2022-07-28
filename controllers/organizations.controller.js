@@ -1,4 +1,4 @@
-//const { /* Required services for organizations controller */ } = require('../services/organizations.service');
+const { findOrganization, updateOrganization } = require('../services/organizations.service');
 
 const getOrganizationById = async (req, res) => {
   const { organizationId } = req.params;
@@ -43,4 +43,4 @@ const updateOrganizationById = async (req, res) => {
   }
 };
 
-module.exports = { getOrganization };
+module.exports = { getOrganizationById, updateOrganizationById };

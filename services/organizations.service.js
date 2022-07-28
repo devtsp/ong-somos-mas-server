@@ -10,4 +10,4 @@ const updateOrganization = async (organizationInstance, newValues) => {
   return updatedOrganization;
 };
 
-module.exports = { findOrganization };
+module.exports = { findOrganization, updateOrganization };
