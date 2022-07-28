@@ -8,11 +8,9 @@ require('dotenv').config();
 
 const validateToken = require('./middleware/validateToken');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api/index');
 const activitiesRouter = require('./routes/activities.route.js');
 const testimonialsRouter = require('./routes/testimonials.route.js');
-const apiRouter = require('./routes/api/index');
 
 const app = express();
 app.use(cors());
@@ -27,10 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// app.use(validateToken); 
+// app.use(validateToken);
 app.use('/api', apiRouter);
 app.use('/api/activities', activitiesRouter);
 app.use('/api/testimonials', testimonialsRouter);

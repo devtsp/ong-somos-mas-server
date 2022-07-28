@@ -1,13 +1,14 @@
-const db = require('../models/index.js');
+const { Contact } = require('../models/index.js');
 
-
-const getContacts = async () => {
-  const contacts = await db.Contact.findAll({ where: { deletedAt: null } });
+const getAllContactsService = async () => {
+  const contacts = await Contact.findAll({ where: { deletedAt: null } });
   return contacts;
 };
 
-
-
-module.exports = {
-  getContacts
+const postContactService = async (data) => {
+  const contact = await Contact.build({ ...data });
+  await contact.save();
+  return contact;
 };
+
+module.exports = { getAllContactsService, postContactService };
