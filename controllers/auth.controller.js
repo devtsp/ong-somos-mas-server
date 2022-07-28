@@ -37,34 +37,35 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   const err = validationResult(req);
-
+  
   if (!err.isEmpty()) {
     return res.status(400).json({ err: err.array() });
   };
-
+  
   const { body } = req;
   const userFound = await db.User.findOne({where: {email: body.email}});
+
   const password = await encryptPassword(body.password);
-
-  if( userFound == null) {
-
-    const user = db.User.build({
-      firstName: body.firstName,
-      lastName: body.lastName,
-      email: body.email,
-      password: password,
-      image: body.image,
-      roleId: body.roleId || ROLES_LIST.User,
-    });
+  const userData = {
+    firstName: body.firstName,
+    lastName: body.lastName,
+    email: body.email,
+    password: password,
+    image: body.image,
+    roleId: body.roleId || ROLES_LIST.User,
+  };
+  const newToken = generateToken(userData);
   
-    user
-      .save()
-      .then(() => {
-        res.json(user).status(200);
-      })
-      .catch((err) => {
-        res.send(err).status(500);
-      });
+  if( userFound == null) {
+    
+    const user = db.User.build(userData);
+    user.save()
+        .then(() => {
+          res.status(200).json({user, token: newToken});
+        })
+        .catch((err) => {
+          res.status(500).send(err);
+        });
   } else {
     res.status(400).json({msg: "User already exists with that email"});
   };
