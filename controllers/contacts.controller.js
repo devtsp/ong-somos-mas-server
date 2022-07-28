@@ -17,12 +17,6 @@ const postContactController = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   const { name, email, message, phone } = req.body;
-  try {
-    const contacts = await getContacts();
-    res.status(200).json(contacts);
-  } catch (error) {
-    res.status(500).json({ errors: error.message });
-  }
 
   try {
     const newContact = await postContactService({
