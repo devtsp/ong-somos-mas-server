@@ -31,8 +31,12 @@ const postNew = async (req, res) => {
     return res.status(404).json({ errors: 'request body missing' });
   }
   req.body.type = 'news';
-  const result = await postNewService(req.body);
-  res.json(result);
+  try {
+    const result = await postNewService(req.body);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const putNews = async (req, res) => {
