@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { postTestimonial, putTestimonial,deleteTestimonial, getAllTestimonials, getTestimonialById } = require('../controllers/testimonials.controller.js');
+const {
+  postTestimonial,
+  putTestimonial,
+  deleteTestimonial,
+  getAllTestimonials,
+  getTestimonialById,
+} = require('../controllers/testimonials.controller.js');
 const verifyRoles = require('../middleware/verifyRoles');
+const validateToken = require('../middleware/validateToken');
 const ROLES_LIST = require('../config/rolesList');
 
 const fieldValidations = [
@@ -10,26 +17,26 @@ const fieldValidations = [
   check('content', 'Content is required').not().isEmpty(),
 ];
 
-router.get("/", getAllTestimonials);
+router.get('/', getAllTestimonials);
 
-router.get("/:id", getTestimonialById);
+router.get('/:id', getTestimonialById);
 
 //@type POST
 //@route /api/testimonials
 //@desc creates a new testimonial. Checks 'name' and 'content' fields not to be empty;
 //@access Private
-router.post('/', /*verifyRoles(ROLES_LIST.Admin),*/ fieldValidations, postTestimonial);
+router.post('/', validateToken, verifyRoles(ROLES_LIST.Admin), fieldValidations, postTestimonial);
 
 //@type PUT
-//@route /api/testimonials
+//@route /api/testimonials/:id
 //@desc updates a testimonial for a given id param.
 //@access Private
-router.put('/:id', fieldValidations, putTestimonial);
+router.put('/:id', validateToken, verifyRoles(ROLES_LIST.Admin), fieldValidations, putTestimonial);
 
-router.delete('/:id', 
- //(ROLES_LIST.Admin),
- deleteTestimonial
-);
-
+//@type DELETE
+//@route /api/testimonials/:id
+//@desc deletes a testimonial for a given id.
+//@access Private
+router.delete('/:id', validateToken, verifyRoles(ROLES_LIST.Admin), deleteTestimonial);
 
 module.exports = router;
