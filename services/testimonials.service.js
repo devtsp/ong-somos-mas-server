@@ -10,6 +10,11 @@ const findTestimonial = async (id) => {
   return testimonialToUpdate;
 };
 
+const findTestimonialsAll = async () => {
+  const testimonials = await Testimonial.findAll();
+  return testimonials
+};
+
 const updateTestimonial = async (testimonialInstance, newValues) => {
   const updatedTestimonial = await testimonialInstance.update(newValues);
   return updatedTestimonial;
@@ -21,6 +26,7 @@ const destroyTestimonial = async (id) => {
 
 module.exports = {
   findTestimonial,
+  findTestimonialsAll,
   updateTestimonial,
   addTestimonial,
   destroyTestimonial

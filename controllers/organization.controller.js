@@ -1,9 +1,11 @@
-const { findOrganization, updateOrganization } = require('../services/organizations.service');
+const {
+  findOrganization,
+  updateOrganization: updateOrganizationService,
+} = require('../services/organization.service');
 
-const getOrganizationById = async (req, res) => {
-  const { organizationId } = req.params;
+const getOrganization = async (req, res) => {
   try {
-    const organization = await findOrganization(organizationId);
+    const organization = await findOrganization();
     if (organization == null) {
       return res.status(404).json({ error: 'There is no organization with the given id' });
     }
@@ -24,15 +26,14 @@ const getOrganizationById = async (req, res) => {
   }
 };
 
-const updateOrganizationById = async (req, res) => {
-  const { organizationId } = req.params;
+const updateOrganization = async (req, res) => {
   const newValues = req.body;
   try {
-    const organization = await findOrganization(organizationId);
+    const organization = await findOrganization();
     if (organization == null) {
       res.status(404).json({ error: 'There is no organization with the given id' });
     }
-    const updatedOrganization = await updateOrganization(organization, newValues);
+    const updatedOrganization = await updateOrganizationService(organization, newValues);
     const { name, image, phone, address, welcomeText, facebook, linkedin, instagram } =
       updatedOrganization;
     return res
@@ -43,4 +44,4 @@ const updateOrganizationById = async (req, res) => {
   }
 };
 
-module.exports = { getOrganizationById, updateOrganizationById };
+module.exports = { getOrganization, updateOrganization };

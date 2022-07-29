@@ -1,7 +1,8 @@
 const { Activity } = require('../models');
 
-const addActivity = ({name, content}) => {
-    //Activity.create({name, content});
+const addActivity = async ({ name, content }) => {
+  const newActivity = await Activity.create({ name, content });
+  return newActivity;
 };
 
 const findActivity = async (id) => {

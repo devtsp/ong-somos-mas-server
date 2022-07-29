@@ -1,3 +1,4 @@
+const { default: jwtDecode } = require('jwt-decode');
 const { User } = require('../models');
 
 const getAllUsers = async () => {
@@ -5,4 +6,18 @@ const getAllUsers = async () => {
   return users;
 };
 
-module.exports = { getAllUsers };
+const getOneUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  if (user !== null) {
+    return user.dataValues;
+  } else {
+    return null;
+  }
+};
+
+const getUserDataFromToken = (token) => {
+  const splitToken = token.split(' ')[1];
+  return jwtDecode(splitToken);
+};
+
+module.exports = { getAllUsers, getOneUserById, getUserDataFromToken };
