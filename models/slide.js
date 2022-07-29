@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //Possible attempt of association to organizations table
+      //Possible attempt of association to organization table
       /*slide.belongsTo(models.Organization, {
-            as: "organizations",
+            as: "organization",
             foreignKey: 'organizationId'
         }) */
     }
