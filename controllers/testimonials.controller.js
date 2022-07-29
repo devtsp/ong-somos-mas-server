@@ -4,7 +4,19 @@ const {
   findTestimonial,
   updateTestimonial,
   destroyTestimonial,
+  findTestimonialsAll,
 } = require('../services/testimonials.service');
+
+const getAllTestimonials = async(req, res) => {
+
+  try {
+    const testimonials = await findTestimonialsAll();
+    res.status(200).json(testimonials);
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+};
+
 
 const postTestimonial = async (req, res) => {
   const errors = validationResult(req);
@@ -62,4 +74,4 @@ const deleteTestimonial = async (req, res) => {
   }
 };
 
-module.exports = { postTestimonial, putTestimonial, deleteTestimonial };
+module.exports = { postTestimonial, putTestimonial, deleteTestimonial, getAllTestimonials };
