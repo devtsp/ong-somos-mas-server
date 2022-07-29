@@ -17,8 +17,16 @@ const fieldValidations = [
   check('content', 'Content is required').not().isEmpty(),
 ];
 
+//@type GET
+//@route /api/testimonials
+//@desc retrieves all testimonials.
+//@access Public
 router.get('/', getAllTestimonials);
 
+//@type GET
+//@route /api/testimonials/:id
+//@desc retrieves a testimonial instance for a given id.
+//@access Public
 router.get('/:id', getTestimonialById);
 
 //@type POST
