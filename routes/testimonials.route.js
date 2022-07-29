@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { postTestimonial, putTestimonial,deleteTestimonial, getAllTestimonials } = require('../controllers/testimonials.controller.js');
+const { postTestimonial, putTestimonial,deleteTestimonial, getAllTestimonials, getTestimonialById } = require('../controllers/testimonials.controller.js');
 const verifyRoles = require('../middleware/verifyRoles');
 const ROLES_LIST = require('../config/rolesList');
 
@@ -11,6 +11,8 @@ const fieldValidations = [
 ];
 
 router.get("/", getAllTestimonials);
+
+router.get("/:id", getTestimonialById);
 
 //@type POST
 //@route /api/testimonials
