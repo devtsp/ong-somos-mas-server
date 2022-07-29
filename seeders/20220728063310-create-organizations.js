@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      'Organizations',
+      'Organization',
       [
         {
           name: 'Somos Más',
@@ -59,6 +59,6 @@ social.`,
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Organizations');
+    await queryInterface.bulkDelete('Organization');
   },
 };
