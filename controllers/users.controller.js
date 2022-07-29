@@ -1,7 +1,7 @@
-const { default: jwtDecode } = require('jwt-decode');
 
 const db = require('../models/index');
-const { getAllUsers } = require('../services/users.service');
+const { encryptPassword } = require('../services/auth.service');
+const { getAllUsers, getOneUserById, getUserDataFromToken } = require('../services/users.service');
 
 const getUsers = async (req, res) => {
   try {
@@ -14,9 +14,8 @@ const getUsers = async (req, res) => {
 
 const userDelete = async (req, res) => {
 
-  const user = await db.User.findOne({ where: { id: req.params.id } });
-  const token = req.token.split(' ')[1];
-  const userDataToken = jwtDecode(token);
+  const user = await getOneUserById(req.params.id);
+  const userDataToken = getUserDataFromToken(req.token);
 
   if (user !== null) {
     if( userDataToken.UserInfo.roleId == 1){
@@ -52,4 +51,46 @@ const userDelete = async (req, res) => {
   };
 };
 
-module.exports = { userDelete, getUsers };
+const userUpdate = async (req, res) => {
+
+  let user = await getOneUserById(req.params.id);
+  const userDataToken = getUserDataFromToken(req.token);
+  let password;
+
+  if ( req.body.password !== undefined) {
+    password = await encryptPassword(req.body.password);
+  };
+
+  if (user !== null) {
+
+    user = { ...user,
+      firstName: req.body.firstName || user.firstName,
+      lastName: req.body.lastName || user.lastName,
+      email: req.body.email || user.email,
+      password: password || user.password,
+      image: req.body.image || user.image,
+    };
+
+    if ( userDataToken.UserInfo.id == user.id) {
+
+      try {
+        db.User.update(user,
+          {where: {id: req.params.id}}
+        );
+        res.status(200).json(user)
+      } catch (error) {
+        res.status(500).json({error})
+      };
+      
+    } else {
+      res.status(400).json({msg: "You are not allowed to modify other users"});
+    };
+
+  } else {
+    res.status(404).json({msg: 'User not found'});
+  };
+
+
+};
+
+module.exports = { userDelete, getUsers, userUpdate };
