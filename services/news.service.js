@@ -14,7 +14,8 @@ const retrieveNews = async () => {
 };
 
 const postNewService = async (postBody) => {
-  return postBody;
+  const postedNew = await db.Entry.create(postBody);
+  return postedNew.id;
 };
 
 const editNews = async ({ id, content, image, categoryId, type, updatedAt, deleteAt }) => {
