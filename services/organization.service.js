@@ -1,7 +1,7 @@
 const { Organization } = require('../models');
 
-const findOrganization = async (id) => {
-  const organization = await Organization.findOne({ where: { id: id } });
+const findOrganization = async () => {
+  const organization = await Organization.findOne();
   return organization;
 };
 

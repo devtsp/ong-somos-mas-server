@@ -7,6 +7,6 @@ router.use('/members', require('./members.route'));
 router.use('/users', require('./users.route'));
 router.use('/categories', require('./categories.route'));
 router.use('/contacts', require('./contacts.route'));
-router.use('/organizations', require('./organizations.route'));
+router.use('/organization', require('./organization.route'));
 
 module.exports = router;
