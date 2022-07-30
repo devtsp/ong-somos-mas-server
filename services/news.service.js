@@ -8,7 +8,7 @@ const retrieveNewById = async (id) => {
 const retrieveNews = async () => {
   const news = await db.Entry.findAll({
     attributes: ['name', 'image', 'createdAt'],
-    where: { type: 'news' },
+    where: { categoryId },
   });
   return news;
 };
