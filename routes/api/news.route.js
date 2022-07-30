@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
+
 const validateToken = require('../../middleware/validateToken');
 const verifyRoles = require('../../middleware/verifyRoles');
 const ROLES_LIST = require('../../config/rolesList');
-
+const { postEntryValidations } = require('../../utils/validators');
 const newsController = require('../../controllers/news.controller');
 
 //@route    GET /api/news/:id
@@ -20,7 +21,13 @@ router.get('/', newsController.getNews);
 //@route    POST /api/news
 //@desc     Post entry of type: "news"
 //@access   Private (Admin)
-router.post('/', [validateToken, verifyRoles(ROLES_LIST.Admin)], newsController.postNew);
+router.post(
+  '/',
+  validateToken,
+  verifyRoles(ROLES_LIST.Admin),
+  postEntryValidations,
+  newsController.postNew
+);
 
 //@route    PUT /api/news
 //@desc     Actualizar una novedad existente

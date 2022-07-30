@@ -8,7 +8,7 @@ const retrieveNewById = async (id) => {
 const retrieveNews = async () => {
   const news = await db.Entry.findAll({
     attributes: ['name', 'image', 'createdAt'],
-    where: { categoryId },
+    where: { categoryId: 1 },
   });
   return news;
 };
@@ -27,7 +27,7 @@ const editNews = async ({ id, content, image, categoryId, type, updatedAt, delet
 };
 
 const destroyNew = async (id) => {
-  const savedInDb = await db.Entry.findOne({ where: { id, type: 'news' } });
+  const savedInDb = await db.Entry.findOne({ where: { id, categoryId: 1 } });
   await db.Entry.destroy({ where: { id } });
   return savedInDb;
 };
