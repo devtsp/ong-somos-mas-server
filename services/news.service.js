@@ -1,7 +1,7 @@
 const db = require('../models/index');
 
 const retrieveNewById = async (id) => {
-  const foundNew = await db.Entry.findByPk(id);
+  const { dataValues: foundNew } = await db.Entry.findByPk(id);
   return foundNew;
 };
 
@@ -18,9 +18,9 @@ const postNewService = async (postBody) => {
   return postedNew.id;
 };
 
-const editNews = async ({ id, content, image, categoryId, type, updatedAt, deleteAt }) => {
+const editNews = async ({ id, name, content, image, categoryId, type, updatedAt, deletedAt }) => {
   const news = await db.Entry.update(
-    { content, image, categoryId, type, updatedAt, deleteAt },
+    { name, content, image, categoryId, type, updatedAt, deletedAt },
     { where: { id } }
   );
   return news;
@@ -32,15 +32,9 @@ const destroyNew = async (id) => {
   return savedInDb;
 };
 
-const newsExists = async ({ id }) => {
-  const newsExists = await db.Entry.findByPk(id);
-  return newsExists ? newsExists : null;
-};
-
 module.exports = {
   postNewService,
   editNews,
-  newsExists,
   retrieveNews,
   retrieveNewById,
   destroyNew,
