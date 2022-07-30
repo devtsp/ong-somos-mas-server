@@ -30,7 +30,16 @@ const postNew = async (req, res) => {
   if (!req?.body) {
     return res.status(404).json({ errors: 'request body missing' });
   }
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  req.body.categoryId = 1;
   req.body.type = 'news';
+
   try {
     const result = await postNewService(req.body);
     res.json(result);
