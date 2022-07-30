@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-const postEntryValidations = [
+const entryBodyValidations = [
   body('name')
     .exists()
     .withMessage('"name" field is required')
@@ -33,4 +33,4 @@ const postEntryValidations = [
     .withMessage('"image" field cannot be empty'),
 ];
 
-module.exports = { postEntryValidations };
+module.exports = { entryBodyValidations };

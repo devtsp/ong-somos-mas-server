@@ -58,7 +58,7 @@ const putNews = async (req, res) => {
       return res.status(404).json({ errors: `New not found` });
     }
     const updatedNew = {
-      ...storedNew,
+      ...storedNew.dataValues,
       ...req.body,
     };
     await editNews(updatedNew);
