@@ -6,6 +6,7 @@ const {
   destroyNew,
 } = require('../services/news.service');
 const { validationResult } = require('express-validator');
+const fs = require('fs');
 
 const getNewById = async (req, res) => {
   try {
@@ -36,8 +37,11 @@ const postNew = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
+  fs.renameSync(`public/img/news/${req.file.filename}`, `public/img/news/${req.file.filename}.png`);
+
   req.body.categoryId = 1;
   req.body.type = 'news';
+  req.body.image = `${req.file.filename}.png`;
 
   try {
     const result = await postNewService(req.body);

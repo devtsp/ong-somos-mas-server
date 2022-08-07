@@ -21,16 +21,6 @@ const entryBodyValidations = [
     .trim()
     .notEmpty()
     .withMessage('"content" field cannot be empty'),
-  body('image')
-    .exists()
-    .withMessage('"image" field is required')
-    .bail()
-    .isString()
-    .withMessage('"image" field must be string')
-    .bail()
-    .trim()
-    .notEmpty()
-    .withMessage('"image" field cannot be empty'),
 ];
 
 module.exports = { entryBodyValidations };

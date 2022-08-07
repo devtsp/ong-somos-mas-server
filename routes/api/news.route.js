@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: './public/img/news' });
 
 const validateToken = require('../../middleware/validateToken');
 const verifyRoles = require('../../middleware/verifyRoles');
@@ -24,6 +26,7 @@ router.post(
   '/',
   validateToken,
   verifyRoles(ROLES_LIST.Admin),
+  upload.single('image'),
   entryBodyValidations,
   newsController.postNew
 );

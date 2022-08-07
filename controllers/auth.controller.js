@@ -8,8 +8,6 @@ const { comparePassword, generateToken, encryptPassword } = require('../services
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(email, password);
-
   const err = validationResult(req);
 
   if (!err.isEmpty()) {
