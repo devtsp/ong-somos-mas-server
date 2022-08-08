@@ -38,6 +38,7 @@ router.put(
   '/:id',
   validateToken,
   verifyRoles(ROLES_LIST.Admin),
+  upload.single('image'),
   entryBodyValidations,
   newsController.putNews
 );

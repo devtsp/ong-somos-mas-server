@@ -56,15 +56,27 @@ const putNews = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
+
   try {
     const storedNew = await retrieveNewById(req.params.id);
     if (!storedNew) {
       return res.status(404).json({ errors: `New not found` });
     }
+
     const updatedNew = {
       ...storedNew.dataValues,
       ...req.body,
     };
+
+    const imageWasUpdated = req?.file;
+
+    if (imageWasUpdated) {
+      const newImageName = `${req.file.filename}.png`;
+      fs.renameSync(`public/img/news/${req.file.filename}`, `public/img/news/${newImageName}`);
+      fs.unlinkSync(`public/img/news/${storedNew.image}`);
+      updatedNew.image = newImageName;
+    }
+
     await editNews(updatedNew);
     res.status(200).json({ msg: `News updated`, new: updatedNew });
   } catch (error) {

@@ -18,11 +18,8 @@ const postNewService = async (postBody) => {
   return postedNew.id;
 };
 
-const editNews = async ({ id, name, content, image, categoryId, type, updatedAt, deletedAt }) => {
-  const news = await db.Entry.update(
-    { name, content, image, categoryId, type, updatedAt, deletedAt },
-    { where: { id } }
-  );
+const editNews = async ({ id, name, content, image }) => {
+  const news = await db.Entry.update({ name, content, image }, { where: { id } });
   return news;
 };
 
