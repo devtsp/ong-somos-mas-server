@@ -27,13 +27,13 @@ const getNews = async (req, res) => {
 };
 
 const postNew = async (req, res) => {
-  if (!req?.body) {
-    return res.status(404).json({ errors: 'request body missing' });
+  if (!req.file) {
+    return res.sendStatus(400);
   }
 
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
+    fs.unlinkSync(req.file.path);
     return res.status(400).json({ errors: errors.array() });
   }
 
