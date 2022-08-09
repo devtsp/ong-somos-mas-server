@@ -6,7 +6,6 @@ const {
   destroyNew,
 } = require('../services/news.service');
 const { validationResult } = require('express-validator');
-const fs = require('fs');
 
 const getNewById = async (req, res) => {
   try {
@@ -27,21 +26,18 @@ const getNews = async (req, res) => {
 };
 
 const postNew = async (req, res) => {
-  if (!req.file) {
-    return res.sendStatus(400);
+  if (!req?.body) {
+    return res.status(404).json({ errors: 'request body missing' });
   }
 
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
-    fs.unlinkSync(req.file.path);
     return res.status(400).json({ errors: errors.array() });
   }
 
-  fs.renameSync(`public/img/news/${req.file.filename}`, `public/img/news/${req.file.filename}.png`);
-
   req.body.categoryId = 1;
   req.body.type = 'news';
-  req.body.image = `${req.file.filename}.png`;
 
   try {
     const result = await postNewService(req.body);
@@ -56,27 +52,15 @@ const putNews = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   try {
     const storedNew = await retrieveNewById(req.params.id);
     if (!storedNew) {
       return res.status(404).json({ errors: `New not found` });
     }
-
     const updatedNew = {
       ...storedNew.dataValues,
       ...req.body,
     };
-
-    const imageWasUpdated = req?.file;
-
-    if (imageWasUpdated) {
-      const newImageName = `${req.file.filename}.png`;
-      fs.renameSync(`public/img/news/${req.file.filename}`, `public/img/news/${newImageName}`);
-      fs.unlinkSync(`public/img/news/${storedNew.image}`);
-      updatedNew.image = newImageName;
-    }
-
     await editNews(updatedNew);
     res.status(200).json({ msg: `News updated`, new: updatedNew });
   } catch (error) {
