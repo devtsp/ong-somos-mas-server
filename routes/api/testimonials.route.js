@@ -7,10 +7,10 @@ const {
   deleteTestimonial,
   getAllTestimonials,
   getTestimonialById,
-} = require('../controllers/testimonials.controller.js');
-const verifyRoles = require('../middleware/verifyRoles');
-const validateToken = require('../middleware/validateToken');
-const ROLES_LIST = require('../config/rolesList');
+} = require('../../controllers/testimonials.controller.js');
+const verifyRoles = require('../../middleware/verifyRoles');
+const validateToken = require('../../middleware/validateToken');
+const ROLES_LIST = require('../../config/rolesList');
 
 const fieldValidations = [
   check('name', 'Name is required').not().isEmpty(),

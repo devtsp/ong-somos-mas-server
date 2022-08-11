@@ -1,7 +1,6 @@
 const {
   postNewService,
   editNews,
-  newsExists,
   retrieveNews,
   retrieveNewById,
   destroyNew,
@@ -30,7 +29,16 @@ const postNew = async (req, res) => {
   if (!req?.body) {
     return res.status(404).json({ errors: 'request body missing' });
   }
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  req.body.categoryId = 1;
   req.body.type = 'news';
+
   try {
     const result = await postNewService(req.body);
     res.json(result);
@@ -44,25 +52,16 @@ const putNews = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
-  const { name, content, image, categoryId, type, deleteAt } = req.body;
-  const { id } = req.params;
-
   try {
-    const news = await newsExists({ id });
-    if (!news) {
+    const storedNew = await retrieveNewById(req.params.id);
+    if (!storedNew) {
       return res.status(404).json({ errors: `New not found` });
     }
-    const updatedNew = await editNews({
-      id,
-      name,
-      content,
-      image,
-      categoryId,
-      type,
-      updatedAt: new Date(),
-      deleteAt,
-    });
+    const updatedNew = {
+      ...storedNew.dataValues,
+      ...req.body,
+    };
+    await editNews(updatedNew);
     res.status(200).json({ msg: `News updated`, new: updatedNew });
   } catch (error) {
     res.status(500).json({ errors: error.message });

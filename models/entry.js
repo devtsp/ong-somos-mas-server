@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       content: DataTypes.TEXT,
-      image: DataTypes.STRING,
+      image: DataTypes.TEXT('long'),
       categoryId: DataTypes.INTEGER,
       type: DataTypes.STRING,
       deletedAt: DataTypes.DATE,

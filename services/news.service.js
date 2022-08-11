@@ -1,14 +1,14 @@
 const db = require('../models/index');
 
 const retrieveNewById = async (id) => {
-  const foundNew = await db.Entry.findByPk(id);
-  return foundNew;
+  const stored = await db.Entry.findByPk(id);
+  return stored;
 };
 
 const retrieveNews = async () => {
   const news = await db.Entry.findAll({
-    attributes: ['name', 'image', 'createdAt'],
-    where: { type: 'news' },
+    attributes: ['id', 'name', 'image', 'content', 'createdAt'],
+    where: { categoryId: 1 },
   });
   return news;
 };
@@ -18,29 +18,23 @@ const postNewService = async (postBody) => {
   return postedNew.id;
 };
 
-const editNews = async ({ id, content, image, categoryId, type, updatedAt, deleteAt }) => {
+const editNews = async ({ id, name, content, image, categoryId, type, updatedAt, deletedAt }) => {
   const news = await db.Entry.update(
-    { content, image, categoryId, type, updatedAt, deleteAt },
+    { name, content, image, categoryId, type, updatedAt, deletedAt },
     { where: { id } }
   );
   return news;
 };
 
 const destroyNew = async (id) => {
-  const savedInDb = await db.Entry.findOne({ where: { id, type: 'news' } });
+  const savedInDb = await db.Entry.findOne({ where: { id, categoryId: 1 } });
   await db.Entry.destroy({ where: { id } });
   return savedInDb;
-};
-
-const newsExists = async ({ id }) => {
-  const newsExists = await db.Entry.findByPk(id);
-  return newsExists ? newsExists : null;
 };
 
 module.exports = {
   postNewService,
   editNews,
-  newsExists,
   retrieveNews,
   retrieveNewById,
   destroyNew,

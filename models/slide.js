@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Slide extends Model {
     /**
@@ -18,14 +16,17 @@ module.exports = (sequelize, DataTypes) => {
         }) */
     }
   }
-  Slide.init({
-    imageUrl: DataTypes.STRING,
-    text: DataTypes.TEXT,
-    order: DataTypes.INTEGER,
-    organizationId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Slide',
-  });
+  Slide.init(
+    {
+      image: DataTypes.TEXT('long'),
+      text: DataTypes.TEXT,
+      order: DataTypes.INTEGER,
+      organizationId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Slide',
+    }
+  );
   return Slide;
 };

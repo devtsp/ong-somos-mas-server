@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const verifyRoles = require('../middleware/verifyRoles');
-const ROLES_LIST = require('../config/rolesList');
+const verifyRoles = require('../../middleware/verifyRoles');
+const ROLES_LIST = require('../../config/rolesList');
 
-const { postActivities, putActivity } = require('../controllers/activities.controller.js');
+const { postActivities, putActivity } = require('../../controllers/activities.controller.js');
 
 const fieldValidations = [
   check('name', 'Name is required').not().isEmpty(),
