@@ -21,8 +21,8 @@ router.get("/", getAllActivities);
 
 router.post(
   '/',
-  //validateToken,
-  //verifyRoles(ROLES_LIST.Admin),
+  validateToken,
+  verifyRoles(ROLES_LIST.Admin),
   fieldValidations,
   postActivities
 );

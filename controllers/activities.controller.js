@@ -34,7 +34,8 @@ const putActivity = async (req, res) => {
 
   const { id } = req.params;
 
-  const activityToUpdate = findActivity(id);
+  const activityToUpdate = await findActivity(id);
+  //console.log(activityToUpdate)
   if (activityToUpdate === null) {
     return res.status(404).json({ error: 'There is no activity with the given id' });
   }
