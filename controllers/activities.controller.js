@@ -1,5 +1,15 @@
 const { validationResult } = require('express-validator');
-const { addActivity, findActivity, updateActivity } = require('../services/activities.service.js');
+const { addActivity, findActivity, updateActivity, findAllActivities, destroyActivity } = require('../services/activities.service.js');
+
+const getAllActivities = async(req, res) => {
+
+  try {
+    const activities = await findAllActivities();
+    res.status(200).json(activities);
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+};
 
 const postActivities = async (req, res) => {
   const errors = validationResult(req);
@@ -39,4 +49,20 @@ const putActivity = async (req, res) => {
   }
 };
 
-module.exports = { postActivities, putActivity };
+const deleteActivity = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const activitiy = await findActivity(id);
+
+    if (!activitiy) {
+      return res.status(404).json({ errors: `Activity with ${id} not found` });
+    }
+    await destroyActivity(id);
+    res.status(200).json(activitiy);
+  } catch (error) {
+    res.status(500).json({ errors: error.message });
+  }
+};
+
+module.exports = { getAllActivities, postActivities, putActivity, deleteActivity };
