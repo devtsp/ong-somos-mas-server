@@ -64,7 +64,7 @@ const putTestimonial = async (req, res) => {
   const { name, content, image } = req.body;
 
   try {
-    const updatedTestimonial = await updateTestimonial(testimonialToUpdate, { name, content });
+    const updatedTestimonial = await updateTestimonial(testimonialToUpdate, { name, content, image });
     res.status(200).json({ msg: `Testimonial succesfully updated`, updatedTestimonial });
   } catch (error) {
     res.status(500).json({ errors: error.message });
