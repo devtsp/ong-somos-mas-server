@@ -9,7 +9,7 @@ module.exports = {
       'slides',
       orders.map((order) => ({
         order,
-        imageUrl: `http://localhost:3000/fotos/Foto%20${order}.jpg`,
+        image: `http://localhost:3000/fotos/Foto%20${order}.jpg`,
         text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis assumenda eum, illum harum accusamus corrupti similique illo id reiciendis necessitatibus doloremque voluptatum rem consectetur ex saepe alias at? Fuga, odit.',
         organizationId: 1,
         createdAt,
