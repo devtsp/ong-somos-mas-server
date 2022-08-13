@@ -83,7 +83,7 @@ const userUpdate = async (req, res) => {
         res.status(500).json({error})
       };
     } else {
-      res.status().json({msg: ''});
+      res.status(400).json({msg: 'You are not allowed to modify other users'});
     };
 
   } else {
