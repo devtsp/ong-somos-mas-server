@@ -54,7 +54,6 @@ const userDelete = async (req, res) => {
 const userUpdate = async (req, res) => {
 
   let user = await getOneUserById(req.params.id);
-  const userDataToken = getUserDataFromToken(req.token);
   let password;
 
   if ( req.body.password !== undefined) {
@@ -63,16 +62,18 @@ const userUpdate = async (req, res) => {
 
   if (user !== null) {
 
-    user = { ...user,
-      firstName: req.body.firstName || user.firstName,
-      lastName: req.body.lastName || user.lastName,
-      email: req.body.email || user.email,
-      password: password || user.password,
-      image: req.body.image || user.image,
-    };
+    const anotherUser = await db.User.findOne({where: {email: req.body.email}});
 
-    if ( userDataToken.UserInfo.id == user.id) {
+    if (anotherUser == null || anotherUser.deletedAt !== null || anotherUser.id === user.id) {
 
+      user = { ...user,
+        firstName: req.body.firstName || user.firstName,
+        lastName: req.body.lastName || user.lastName,
+        email: req.body.email || user.email,
+        password: password || user.password,
+        image: req.body.image || user.image,
+      };
+  
       try {
         db.User.update(user,
           {where: {id: req.params.id}}
@@ -81,9 +82,8 @@ const userUpdate = async (req, res) => {
       } catch (error) {
         res.status(500).json({error})
       };
-      
     } else {
-      res.status(400).json({msg: "You are not allowed to modify other users"});
+      res.status().json({msg: ''});
     };
 
   } else {
