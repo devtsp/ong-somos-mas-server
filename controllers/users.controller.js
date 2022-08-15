@@ -1,6 +1,6 @@
 
 const db = require('../models/index');
-const { encryptPassword } = require('../services/auth.service');
+const { encryptPassword, generateToken } = require('../services/auth.service');
 const { getAllUsers, getOneUserById, getUserDataFromToken } = require('../services/users.service');
 
 const getUsers = async (req, res) => {
@@ -9,7 +9,7 @@ const getUsers = async (req, res) => {
     res.status(200).json({ users });
   } catch (error) {
     res.status(500).json({ errors: error.message });
-  }
+  };
 };
 
 const userDelete = async (req, res) => {
@@ -74,14 +74,14 @@ const userUpdate = async (req, res) => {
         password: password || user.password,
         image: req.body.image || user.image,
       };
-  
+      const newToken = generateToken(user);
       try {
         db.User.update(user,
           {where: {id: req.params.id}}
         );
-        res.status(200).json(user)
+        res.status(200).json({token: newToken, user});
       } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({msg: 'An error occurred trying to update the user', error});
       };
     } else {
       res.status(500).json({msg: 'Internal server error'});
