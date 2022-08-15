@@ -64,7 +64,8 @@ const userUpdate = async (req, res) => {
 
     const anotherUser = await db.User.findOne({where: {email: req.body.email}});
 
-    if (anotherUser == null || anotherUser.deletedAt !== null || anotherUser.id === user.id) {
+    if (anotherUser == null || anotherUser.deletedAt !== null || anotherUser.id === user.id || user.roleId === 1) {
+
 
       user = { ...user,
         firstName: req.body.firstName || user.firstName,
@@ -83,7 +84,7 @@ const userUpdate = async (req, res) => {
         res.status(500).json({error})
       };
     } else {
-      res.status(400).json({msg: 'You are not allowed to modify other users'});
+      res.status(500).json({msg: 'Internal server error'});
     };
 
   } else {
