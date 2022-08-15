@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const verifyRoles = require('../../middleware/verifyRoles');
 const ROLES_LIST = require('../../config/rolesList');
 
-const { postActivities, putActivity, getAllActivities, deleteActivity } = require('../../controllers/activities.controller.js');
+const { postActivities, putActivity, getAllActivities, deleteActivity, getActivityById } = require('../../controllers/activities.controller.js');
 const validateToken = require('../../middleware/validateToken');
 
 const fieldValidations = [
@@ -13,6 +13,8 @@ const fieldValidations = [
 ];
 
 router.get("/", getAllActivities);
+
+router.get("/:id", getActivityById);
 
 //@type POST
 //@route /api/activities

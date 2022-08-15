@@ -31,6 +31,7 @@ const login = async (req, res) => {
   const newToken = generateToken(databaseUser.dataValues);
   return res.status(200).json({
     msg: 'Logged successfully',
+    user: databaseUser,
     token: newToken,
   });
 };
@@ -55,26 +56,26 @@ const register = async (req, res) => {
     roleId: body.roleId || ROLES_LIST.User,
   };
   const newToken = generateToken(userData);
-
-  if (userFound == null) {
+  
+  if (userFound == null || userFound.deletedAt == null) {
     const user = db.User.build(userData);
     user
-      .save()
-      .then(() => {
-        res.status(200).json({ user, token: newToken });
-      })
-      .catch((err) => {
-        res.status(500).send(err);
-      });
+    .save()
+    .then(() => {
+      res.status(200).json({ user, token: newToken });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
   } else {
     res.status(400).json({ msg: 'User already exists with that email' });
-  }
+  };
 };
 
 const authMe = (req, res) => {
   const token = req.token.split(' ')[1];
-  const user = jwtDecode(token);
-  res.status(200).json(user);
+  const {UserInfo} = jwtDecode(token);
+  res.status(200).json({user: UserInfo});
 };
 
 module.exports = { register, login, authMe };

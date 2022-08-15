@@ -11,16 +11,18 @@ const getOrganization = async (req, res) => {
     }
     const { name, image, phone, address, welcomeText, facebook, linkedin, instagram } =
       organization;
-    return res.json({
-      name,
-      image,
-      phone,
-      address,
-      welcomeText,
-      facebook,
-      linkedin,
-      instagram,
-    });
+    return res.json([
+      {
+        name,
+        image,
+        phone,
+        address,
+        welcomeText,
+        facebook,
+        linkedin,
+        instagram,
+      },
+    ]);
   } catch (error) {
     return res.status(500).json({ errors: error.message });
   }

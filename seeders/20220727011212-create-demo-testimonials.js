@@ -11,7 +11,7 @@ const names = [
   'Miriam Rodriguez',
   'Rodrigo Fuente',
 ];
-const image = 'https://image-bucket.com/test-image.png';
+const image = 'https://placeimg.com/200/200/people';
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -20,7 +20,8 @@ module.exports = {
       names.map((name) => ({
         name,
         content,
-        image: `http://localhost:3000/miembros%20del%20equipo/${name.replace(' ', '%20')}.jpeg`,
+        image
+        //image: `http://localhost:3000/miembros%20del%20equipo/${name.replace(' ', '%20')}.jpeg`,
       })),
       {}
     );
