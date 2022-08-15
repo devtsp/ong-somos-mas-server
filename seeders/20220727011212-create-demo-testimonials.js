@@ -20,8 +20,7 @@ module.exports = {
       names.map((name) => ({
         name,
         content,
-        image
-        //image: `http://localhost:3000/miembros%20del%20equipo/${name.replace(' ', '%20')}.jpeg`,
+        image,
       })),
       {}
     );
