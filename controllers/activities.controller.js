@@ -11,6 +11,19 @@ const getAllActivities = async(req, res) => {
   }
 };
 
+const getActivityById = async (req, res) => {
+  const {id} = req.params;
+  try {
+    const activity = await findActivity(id);
+    if(!activity){
+      return res.status(404).json({errors: `Activity with id ${id} not found`})
+    }
+    res.status(200).json(activity);     
+  } catch (error) {
+    res.status(500).json({ errors: error.message });  
+  }
+};
+
 const postActivities = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -66,4 +79,4 @@ const deleteActivity = async (req, res) => {
   }
 };
 
-module.exports = { getAllActivities, postActivities, putActivity, deleteActivity };
+module.exports = { getAllActivities, getActivityById, postActivities, putActivity, deleteActivity };

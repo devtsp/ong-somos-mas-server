@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.TEXT('long'),
       },
       content: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('long'),
       },
       deletedAt: {
         type: Sequelize.DATE,
