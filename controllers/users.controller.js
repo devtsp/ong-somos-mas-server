@@ -73,6 +73,7 @@ const userUpdate = async (req, res) => {
         email: req.body.email || user.email,
         password: password || user.password,
         image: req.body.image || user.image,
+        roleId: req.body.roleId || user.roleId
       };
       const newToken = generateToken(user);
       try {
