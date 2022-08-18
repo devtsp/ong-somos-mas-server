@@ -33,7 +33,7 @@ router.get('/:id', getTestimonialById);
 //@route /api/testimonials
 //@desc creates a new testimonial. Checks 'name' and 'content' fields not to be empty;
 //@access Private
-router.post('/', validateToken, verifyRoles(ROLES_LIST.Admin), fieldValidations, postTestimonial);
+router.post('/', validateToken, verifyRoles(ROLES_LIST.User), fieldValidations, postTestimonial);
 
 //@type PUT
 //@route /api/testimonials/:id
