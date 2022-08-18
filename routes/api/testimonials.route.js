@@ -38,8 +38,8 @@ router.post('/', validateToken, verifyRoles(ROLES_LIST.User), fieldValidations, 
 //@type PUT
 //@route /api/testimonials/:id
 //@desc updates a testimonial for a given id param.
-//@access Private
-router.put('/:id', validateToken, verifyRoles(ROLES_LIST.Admin), fieldValidations, putTestimonial);
+//@access Private - User or Admin
+router.put('/:id', validateToken, fieldValidations, putTestimonial);
 
 //@type DELETE
 //@route /api/testimonials/:id
