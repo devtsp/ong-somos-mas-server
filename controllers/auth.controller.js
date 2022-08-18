@@ -29,11 +29,15 @@ const login = async (req, res) => {
   }
   // return to user if it exist and the password is valid
   const newToken = generateToken(databaseUser.dataValues);
-  return res.status(200).json({
-    msg: 'Logged successfully',
-    user: databaseUser,
-    token: newToken,
-  });
+  if (databaseUser.deletedAt == null){
+    return res.status(200).json({
+      msg: 'Logged successfully',
+      user: databaseUser,
+      token: newToken,
+    });
+  }else {
+    res.status(404).json({msg: "User with that email doesn't exits"})
+  }
 };
 
 const register = async (req, res) => {
