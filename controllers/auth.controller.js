@@ -12,7 +12,7 @@ const login = async (req, res) => {
 
   if (!err.isEmpty()) {
     return res.status(400).json({ err: err.array() });
-  }
+  };
 
   // Verify if email already exists
   const databaseUser = await db.User.findOne({ where: { email } });
@@ -26,7 +26,7 @@ const login = async (req, res) => {
 
   if (comparationResult === false) {
     return res.status(401).json({ msg: 'Invalid credentials' });
-  }
+  };
   // return to user if it exist and the password is valid
   const newToken = generateToken(databaseUser.dataValues);
   if (databaseUser.deletedAt == null){
@@ -36,8 +36,8 @@ const login = async (req, res) => {
       token: newToken,
     });
   }else {
-    res.status(404).json({msg: "User with that email doesn't exits"})
-  }
+    res.status(403).json({msg: "User is deleted, contact support for more information"})
+  };
 };
 
 const register = async (req, res) => {
@@ -45,7 +45,7 @@ const register = async (req, res) => {
 
   if (!err.isEmpty()) {
     return res.status(400).json({ err: err.array() });
-  }
+  };
 
   const { body } = req;
   const userFound = await db.User.findOne({ where: { email: body.email } });
@@ -61,7 +61,7 @@ const register = async (req, res) => {
   };
   const newToken = generateToken(userData);
   
-  if (userFound == null || userFound.deletedAt == null) {
+  if (userFound == null || userFound.deletedAt !== null) {
     const user = db.User.build(userData);
     user
     .save()
