@@ -24,8 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Contact',
-      //This allows the soft delete
-      //   paranoid: true,
+      paranoid: true,
     }
   );
   return Contact;
