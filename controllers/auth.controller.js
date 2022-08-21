@@ -74,10 +74,11 @@ const register = async (req, res) => {
   }
 };
 
-const authMe = (req, res) => {
+const authMe = async (req, res) => {
   const token = req.token.split(' ')[1];
   const { UserInfo } = jwtDecode(token);
-  res.status(200).json({ user: UserInfo });
+  const storedUser = await db.User.findByPk(UserInfo.id);
+  res.status(200).json({ user: storedUser });
 };
 
 module.exports = { register, login, authMe };
