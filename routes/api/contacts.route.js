@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const { getAllContacts, postContactController } = require('../../controllers/contacts.controller');
+const {
+  getAllContacts,
+  postContactController,
+  deleteContact,
+} = require('../../controllers/contacts.controller');
 
 const validateToken = require('../../middleware/validateToken');
 const verifyRoles = require('../../middleware/verifyRoles');
@@ -24,5 +28,7 @@ router.post(
   ],
   postContactController
 );
+
+router.delete('/:id', [validateToken, verifyRoles(ROLES_LIST.Admin)], deleteContact);
 
 module.exports = router;

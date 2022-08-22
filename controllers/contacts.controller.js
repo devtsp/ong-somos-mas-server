@@ -1,5 +1,9 @@
 const { validationResult } = require('express-validator');
-const { getAllContactsService, postContactService } = require('../services/contacts.service');
+const {
+  getAllContactsService,
+  postContactService,
+  removeContactService,
+} = require('../services/contacts.service');
 
 const getAllContacts = async (req, res) => {
   try {
@@ -33,4 +37,15 @@ const postContactController = async (req, res) => {
   }
 };
 
-module.exports = { getAllContacts, postContactController };
+const deleteContact = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await removeContactService(id);
+    return res.json({ msg: `Contact with ID ${id} succesfully deleted` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = { getAllContacts, postContactController, deleteContact };
