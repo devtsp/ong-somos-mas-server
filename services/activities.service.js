@@ -1,7 +1,13 @@
 const { Activity } = require('../models');
 
-const addActivity = ({name, content}) => {
-    //Activity.create({name, content});
+const addActivity = async (activityBody) => {
+  const newActivity = await Activity.create(activityBody);
+  return newActivity;
+};
+
+const findAllActivities = async () => {
+  const activities = await Activity.findAll();
+  return activities
 };
 
 const findActivity = async (id) => {
@@ -14,4 +20,8 @@ const updateActivity = async (activityInstance, newValues) => {
   return updatedActivity;
 };
 
-module.exports = { addActivity, findActivity, updateActivity };
+const destroyActivity = async (id) => {
+  await Activity.destroy({ where: { id } });  
+};
+
+module.exports = { addActivity, findAllActivities, findActivity, updateActivity, destroyActivity };

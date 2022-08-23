@@ -1,12 +1,15 @@
 const express = require('express');
 const { check } = require('express-validator');
-const { login, register } = require('../../controllers/auth.controller');
+
+const { login, register, authMe } = require('../../controllers/auth.controller');
+const validateToken = require('../../middleware/validateToken');
 
 const router = express.Router();
 
 
-// @ route POST /api/login
+// @ route POST /api/auth/login
 // @ desc As user i want to authenticate in the page to have access to it
+// @ access Public
 router.post(
     '/login',
     [
@@ -18,9 +21,9 @@ router.post(
     login
 );
 
-//@route  POST /api/register
-//@desc  como ususario quiero registrarme en el sistema 
-// para ser parte del mismo
+//@route  POST /api/auth/register
+//@desc   As user I want to register in the sistem to be part of it
+//@access Public
 router.post(
     '/register',
     [
@@ -35,6 +38,12 @@ router.post(
     ],
     register
 );
+
+// @route GET /api/auth/me
+// @desc  As user I want to obtain my data to know the information I store in the system
+//  Should return authenticate user data from the token sent in the header
+// @access Private
+router.get('/me', validateToken, authMe);
 
 
 module.exports = router;

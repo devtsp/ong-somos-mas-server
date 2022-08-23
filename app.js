@@ -6,34 +6,22 @@ const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
-const validateToken = require('./middleware/validateToken');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const activitiesRouter = require('./routes/activities.route.js');
-const testimonialsRouter = require('./routes/testimonials.route.js');
-const apiRouter = require('./routes/api/index');
-
 const app = express();
-app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// middleware
+app.use(cors());
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// app.use(validateToken); 
-app.use('/api', apiRouter);
-app.use('/api/activities', activitiesRouter);
-app.use('/api/testimonials', testimonialsRouter);
+// API router
+app.use('/api', require('./routes/api/index'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

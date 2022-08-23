@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Activity extends Model {
+  class Organization extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,17 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Activity.init(
+  Organization.init(
     {
       name: DataTypes.STRING,
       image: DataTypes.TEXT('long'),
-      content: DataTypes.TEXT('long'),
+      phone: DataTypes.STRING,
+      address: DataTypes.STRING,
+      welcomeText: DataTypes.STRING,
+      facebook: DataTypes.STRING,
+      linkedin: DataTypes.STRING,
+      instagram: DataTypes.STRING,
+      //Should socialMedia be defined here or instead use a separate model for it and associate it to Organization?
     },
     {
       sequelize,
-      modelName: 'Activity',
-      paranoid: true,
+      modelName: 'Organization',
     }
   );
-  return Activity;
+  return Organization;
 };
